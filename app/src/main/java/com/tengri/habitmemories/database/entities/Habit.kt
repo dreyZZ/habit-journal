@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Habit(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "name") val name: String?,
 )

@@ -5,7 +5,7 @@ import com.tengri.habitmemories.App
 
 object DBInterface {
     val db = Room.databaseBuilder(
-        App.instance,
+        App.instance.applicationContext,
             AppDatabase::class.java, "habit-memories"
-        ).build()
+        ).allowMainThreadQueries().build()
 }
