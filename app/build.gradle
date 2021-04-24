@@ -53,7 +53,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     // Async Solution
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1" // for viewModelScope
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1" // for lifecycleScope
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
 }

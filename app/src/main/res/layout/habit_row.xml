@@ -31,12 +31,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#00000000"
-            app:layout_constraintRight_toLeftOf="@id/memoryDeleteButton"
+            app:layout_constraintRight_toLeftOf="@id/habitDeleteButton"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_baseline_edit_24"/>
 
         <ImageButton
-            android:id="@+id/memoryDeleteButton"
+            android:id="@+id/habitDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#00000000"

@@ -3,18 +3,26 @@ package com.tengri.habitmemories.activity.main.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Habit
+import com.tengri.habitmemories.state.HabitsState
 
 class HabitListAdapter(private val habitList: MutableList<Habit>) : RecyclerView.Adapter<HabitListAdapter.ModelViewHolder>() {
 
     class ModelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val content: TextView = view.findViewById(R.id.habitName)
+        private val habitTextView: TextView = view.findViewById(R.id.habitName)
+        private val deleteButton: ImageButton = view.findViewById(R.id.habitDeleteButton)
 
-        fun bindItems(item: Habit) {
-            content.text = item.name
+        fun bindItems(item: Habit, habitListAdapter: HabitListAdapter) {
+            deleteButton.setOnClickListener {
+                HabitsState.deleteHabit(item)
+                habitListAdapter.notifyItemRemoved(adapterPosition)
+            }
+
+            habitTextView.text = item.name
         }
     }
 
@@ -28,6 +36,6 @@ class HabitListAdapter(private val habitList: MutableList<Habit>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.bindItems(habitList[position])
+        holder.bindItems(habitList[position], this)
     }
 }

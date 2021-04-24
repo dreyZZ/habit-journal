@@ -18,7 +18,7 @@ interface HabitDao {
     fun findByName(name: String): Habit
 
     @Insert
-    fun insertAll(vararg habits: Habit)
+    fun insertAll(vararg habits: Habit): List<Long>
 
     @Delete
     fun delete(habit: Habit)
