@@ -9,6 +9,7 @@ import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.state.HabitsState
+import com.tengri.uiexamples.HabitAddDialog
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -46,8 +47,13 @@ class MainActivity : AppCompatActivity() {
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            HabitsState.addHabit(Habit(0, "Deneme"))
-            habitListRecyclerView.adapter!!.notifyItemInserted(HabitsState.lastIndex())
+            val habitAddDialog = HabitAddDialog(this)
+            habitAddDialog.setOnSubmit {
+                HabitsState.addHabit(Habit(0, it))
+                habitListRecyclerView.adapter!!.notifyItemInserted(HabitsState.lastIndex())
+            }
+
+            habitAddDialog.show()
         }
     }
 
