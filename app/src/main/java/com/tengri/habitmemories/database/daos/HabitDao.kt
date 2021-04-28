@@ -11,7 +11,7 @@ interface HabitDao {
     @Query("SELECT * FROM habit")
     fun getAll(): List<Habit>
 
-    @Query("SELECT * FROM habit WHERE uid IN (:habitIds)")
+    @Query("SELECT * FROM habit WHERE id IN (:habitIds)")
     fun loadAllByIds(habitIds: IntArray): List<Habit>
 
     @Query("SELECT * FROM habit WHERE name LIKE :name LIMIT 1")
