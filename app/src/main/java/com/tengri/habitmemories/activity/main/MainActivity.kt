@@ -1,6 +1,7 @@
 package com.tengri.habitmemories.activity.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +43,10 @@ class MainActivity : AppCompatActivity() {
                     LinearLayoutManager.VERTICAL,
                     false
                 )
-                habitListRecyclerView.adapter = HabitListAdapter(habits as MutableList<Habit>)
+                habitListRecyclerView.adapter = HabitListAdapter(habits as MutableList<Habit>, onItemClicked = {
+                    val rowHabit = habits[it]
+                    Log.d("HABITS: ", rowHabit.name!!)
+                })
             }
 
         // fab
