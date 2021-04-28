@@ -20,7 +20,7 @@ object HabitsState {
         // TODO: 24/04/2021 block ediyor olabilir
         val ids = habitDao.insertAll(habit)
 
-        habit.uid = ids[0].toInt()
+        habit.id = ids[0].toLong()
 
         habits.add(habit)
     }

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.tengri.habitmemories.database.daos.HabitDao
 import com.tengri.habitmemories.database.entities.Habit
 
-@Database(entities = [Habit::class], version = 1)
+@Database(entities = [Habit::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun habitDao(): HabitDao
 }
