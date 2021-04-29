@@ -8,11 +8,9 @@ import com.tengri.habitmemories.database.entities.Memory
 
 @Dao
 interface MemoryDao {
-//    @Query("SELECT * FROM memory")
-//    fun getAll(): List<Memory>
 
-    @Query("SELECT * FROM memory WHERE id IN (:memoryIds)")
-    fun loadAllByIds(memoryIds: IntArray): List<Memory>
+    @Query("SELECT * FROM memory WHERE habitId=:habitId")
+    fun getByHabitId(habitId: Long): List<Memory>
 
     @Insert
     fun insertAll(vararg memories: Memory): List<Long>

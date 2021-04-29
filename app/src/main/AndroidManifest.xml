@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitMemories">
+        <activity android:name=".activity.habit_detail.HabitDetailActivity"></activity>
         <activity
             android:name=".activity.main.MainActivity"
             android:label="@string/title_activity_main"

@@ -1,12 +1,13 @@
 package com.tengri.habitmemories.activity.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.R
+import com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.state.HabitsState
@@ -45,7 +46,11 @@ class MainActivity : AppCompatActivity() {
                 )
                 habitListRecyclerView.adapter = HabitListAdapter(habits as MutableList<Habit>, onItemClicked = {
                     val rowHabit = habits[it]
-                    Log.d("HABITS: ", rowHabit.name!!)
+
+                    val intent = Intent(this, HabitDetailActivity::class.java)
+                    intent.putExtra("habitId", rowHabit.id)
+
+                    startActivity(intent)
                 })
             }
 
