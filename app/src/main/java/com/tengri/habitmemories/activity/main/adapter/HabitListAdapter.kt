@@ -35,7 +35,7 @@ class HabitListAdapter(private val habitList: MutableList<Habit>, private val on
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.habit_list_row, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.habit_list_item, parent, false)
 
         return ModelViewHolder(view, onItemClicked)
     }
