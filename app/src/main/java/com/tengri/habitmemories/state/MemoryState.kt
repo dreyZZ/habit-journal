@@ -30,7 +30,8 @@ object MemoryState {
         return memories.size - 1
     }
 
-    fun getMemories(habitId: Long): List<Memory> {
-        return memoryDao.getByHabitId(habitId)
+    fun getMemories(habitId: Long): MutableList<Memory> {
+        memories = memoryDao.getByHabitId(habitId) as MutableList<Memory>
+        return memories
     }
 }
