@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Memory
+import com.tengri.habitmemories.state.MemoryState
 
 class MemoryListAdapter(private val memoryList: MutableList<Memory>, private val onItemClicked: (pos: Int) -> Unit) : RecyclerView.Adapter<MemoryListAdapter.ModelViewHolder>() {
 
@@ -23,7 +24,7 @@ class MemoryListAdapter(private val memoryList: MutableList<Memory>, private val
 
         fun bindItems(item: Memory, memoryListAdapter: MemoryListAdapter) {
             deleteButton.setOnClickListener {
-//                HabitsState.deleteHabit(item)
+                MemoryState.deleteMemory(item)
                 memoryListAdapter.notifyItemRemoved(adapterPosition)
             }
 
