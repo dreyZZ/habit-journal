@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Habit
-import com.tengri.habitmemories.state.HabitsState
+import com.tengri.habitmemories.state.HabitState
 
 class HabitListAdapter(private val habitList: MutableList<Habit>, private val onItemClicked: (pos: Int) -> Unit) : RecyclerView.Adapter<HabitListAdapter.ModelViewHolder>() {
 
@@ -24,7 +24,7 @@ class HabitListAdapter(private val habitList: MutableList<Habit>, private val on
 
         fun bindItems(item: Habit, habitListAdapter: HabitListAdapter) {
             deleteButton.setOnClickListener {
-                HabitsState.deleteHabit(item)
+                HabitState.deleteHabit(item)
                 habitListAdapter.notifyItemRemoved(adapterPosition)
             }
 

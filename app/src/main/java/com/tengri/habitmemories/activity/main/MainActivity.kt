@@ -10,7 +10,7 @@ import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
 import com.tengri.habitmemories.database.entities.Habit
-import com.tengri.habitmemories.state.HabitsState
+import com.tengri.habitmemories.state.HabitState
 import com.tengri.uiexamples.HabitAddDialog
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         // recyclerview
         Observable.fromCallable {
-            return@fromCallable HabitsState.getDBHabits()
+            return@fromCallable HabitState.getDBHabits()
         }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val habitAddDialog = HabitAddDialog(this)
             habitAddDialog.setOnSubmit {
-                HabitsState.addHabit(Habit(0, it))
-                habitListRecyclerView.adapter!!.notifyItemInserted(HabitsState.lastIndex())
+                HabitState.addHabit(Habit(0, it))
+                habitListRecyclerView.adapter!!.notifyItemInserted(HabitState.lastIndex())
             }
 
             habitAddDialog.show()

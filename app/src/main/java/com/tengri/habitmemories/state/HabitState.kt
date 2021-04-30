@@ -4,7 +4,7 @@ import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.daos.HabitDao
 import com.tengri.habitmemories.database.entities.Habit
 
-object HabitsState {
+object HabitState {
     private var habitDao: HabitDao = DBInterface.db.habitDao()
     lateinit var habits: MutableList<Habit>
 
