@@ -10,7 +10,7 @@ import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.adapter.MemoryListAdapter
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.state.MemoryState
-import com.tengri.uiexamples.HabitAddDialog
+import com.tengri.habitmemories.dialogs.HabitDialog
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -52,7 +52,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val habitAddDialog = HabitAddDialog(this)
+            val habitAddDialog = HabitDialog(this)
             habitAddDialog.setOnSubmit {
                 MemoryState.addMemory(Memory(0, habitId, it))
                 memoryListView.adapter!!.notifyItemInserted(MemoryState.lastIndex())

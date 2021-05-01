@@ -9,9 +9,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
+import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.state.HabitState
-import com.tengri.uiexamples.HabitAddDialog
+import com.tengri.habitmemories.dialogs.HabitDialog
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -51,18 +52,34 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("habitId", rowHabit.id)
 
                     startActivity(intent)
+                }, onEditButtonClicked = { habit, pos, adapter ->
+                    // open edit dialog
+                    val dialog = HabitDialog(this, habit.name!!)
+
+                    dialog.setOnSubmit {
+                        // update habit
+                        habit.name = it
+
+                        // update db
+                        DBInterface.db.habitDao().update(habit)
+
+                        // update adapter
+                        adapter.notifyItemChanged(pos)
+                    }
+
+                    dialog.show()
                 })
             }
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val habitAddDialog = HabitAddDialog(this)
-            habitAddDialog.setOnSubmit {
+            val dialog = HabitDialog(this)
+            dialog.setOnSubmit {
                 HabitState.addHabit(Habit(0, it))
                 habitListRecyclerView.adapter!!.notifyItemInserted(HabitState.lastIndex())
             }
 
-            habitAddDialog.show()
+            dialog.show()
         }
     }
 

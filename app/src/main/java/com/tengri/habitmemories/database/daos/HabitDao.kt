@@ -1,9 +1,6 @@
 package com.tengri.habitmemories.database.daos
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.tengri.habitmemories.database.entities.Habit
 
 @Dao
@@ -16,6 +13,9 @@ interface HabitDao {
 
     @Query("SELECT * FROM habit WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Habit
+
+    @Update
+    fun update(habit: Habit)
 
     @Insert
     fun insertAll(vararg habits: Habit): List<Long>

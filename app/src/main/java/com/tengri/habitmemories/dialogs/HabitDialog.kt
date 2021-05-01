@@ -1,4 +1,4 @@
-package com.tengri.uiexamples
+package com.tengri.habitmemories.dialogs
 
 import android.app.Dialog
 import android.content.Context
@@ -9,7 +9,7 @@ import android.widget.Button
 import com.google.android.material.textfield.TextInputEditText
 import com.tengri.habitmemories.R
 
-class HabitAddDialog(context: Context) : Dialog(context) {
+class HabitDialog(context: Context, private val editTextString: String = "") : Dialog(context) {
 
     private lateinit var onSubmit : (text: String) -> Unit
 
@@ -26,6 +26,8 @@ class HabitAddDialog(context: Context) : Dialog(context) {
 
         val inputText = findViewById<TextInputEditText>(R.id.inputText)
         val submitButton = findViewById<Button>(R.id.submitButton)
+
+        inputText.setText(editTextString)
 
         submitButton.setOnClickListener {
             this.onSubmit(inputText.text.toString())

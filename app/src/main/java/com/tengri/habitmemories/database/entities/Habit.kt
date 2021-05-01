@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 @Entity
 data class Habit(
     @PrimaryKey(autoGenerate = true) var id: Long,
-    val name: String?,
+    var name: String?,
 )
