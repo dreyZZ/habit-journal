@@ -10,9 +10,13 @@ import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.state.MemoryState
 
-class MemoryListAdapter(private val memoryList: MutableList<Memory>, private val onItemClicked: (pos: Int) -> Unit) : RecyclerView.Adapter<MemoryListAdapter.ModelViewHolder>() {
+class MemoryListAdapter(
+    private val memoryList: MutableList<Memory>,
+    private val onItemClicked: (pos: Int) -> Unit
+) : RecyclerView.Adapter<MemoryListAdapter.ModelViewHolder>() {
 
-    class ModelViewHolder(view: View, private val onItemClicked: (pos: Int) -> Unit) : RecyclerView.ViewHolder(view) {
+    class ModelViewHolder(view: View, private val onItemClicked: (pos: Int) -> Unit) :
+        RecyclerView.ViewHolder(view) {
         private val memoryContentTextView: TextView = view.findViewById(R.id.memoryContent)
         private val deleteButton: ImageButton = view.findViewById(R.id.deleteMemoryButton)
 
@@ -35,7 +39,8 @@ class MemoryListAdapter(private val memoryList: MutableList<Memory>, private val
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.memory_list_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.memory_list_item, parent, false)
 
         return ModelViewHolder(view, onItemClicked)
     }
