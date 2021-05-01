@@ -16,7 +16,12 @@ class MemoryListAdapter(
     private val onEditButtonClicked: (
         item: Memory,
         adapterPosition: Int,
-        habitListAdapter: MemoryListAdapter
+        memoryListAdapter: MemoryListAdapter
+    ) -> Unit,
+    private val onImageButtonClicked: (
+        item: Memory,
+        adapterPosition: Int,
+        memoryListAdapter: MemoryListAdapter
     ) -> Unit
 ) : RecyclerView.Adapter<MemoryListAdapter.ModelViewHolder>() {
 
@@ -26,13 +31,19 @@ class MemoryListAdapter(
         private val onEditButtonClicked: (
             item: Memory,
             adapterPosition: Int,
-            habitListAdapter: MemoryListAdapter
+            memoryListAdapter: MemoryListAdapter
+        ) -> Unit,
+        private val onImageButtonClicked: (
+            item: Memory,
+            adapterPosition: Int,
+            memoryListAdapter: MemoryListAdapter
         ) -> Unit
     ) :
         RecyclerView.ViewHolder(view) {
         private val memoryContentTextView: TextView = view.findViewById(R.id.memoryContent)
         private val deleteButton: ImageButton = view.findViewById(R.id.deleteMemoryButton)
         private val editButton: ImageButton = view.findViewById(R.id.editMemoryButton)
+        private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
 
         init {
             view.setOnClickListener {
@@ -50,6 +61,10 @@ class MemoryListAdapter(
                 onEditButtonClicked(item, adapterPosition, memoryListAdapter)
             }
 
+            imageAddButton.setOnClickListener {
+                onImageButtonClicked(item, adapterPosition, memoryListAdapter)
+            }
+
             memoryContentTextView.text = item.content
         }
 
@@ -60,7 +75,7 @@ class MemoryListAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.memory_list_item, parent, false)
 
-        return ModelViewHolder(view, onItemClicked, onEditButtonClicked)
+        return ModelViewHolder(view, onItemClicked, onEditButtonClicked, onImageButtonClicked)
     }
 
     override fun getItemCount(): Int {

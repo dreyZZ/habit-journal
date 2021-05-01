@@ -64,6 +64,10 @@ class HabitDetailActivity : AppCompatActivity() {
                     }
 
                     dialog.show()
+                }, onImageButtonClicked = { memory, pos, adapter ->
+
+
+
                 })
             }
 
@@ -71,7 +75,7 @@ class HabitDetailActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val dialog = MemoryDialog(this)
             dialog.setOnSubmit {
-                MemoryState.addMemory(Memory(0, habitId, it))
+                MemoryState.addMemory(Memory(0, habitId, it, null))
                 memoryListView.adapter!!.notifyItemInserted(MemoryState.lastIndex())
             }
 
