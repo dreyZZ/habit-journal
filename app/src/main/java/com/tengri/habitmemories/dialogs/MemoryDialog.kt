@@ -9,7 +9,7 @@ import android.widget.Button
 import com.google.android.material.textfield.TextInputEditText
 import com.tengri.habitmemories.R
 
-class MemoryAddDialog(context: Context) : Dialog(context) {
+class MemoryDialog(context: Context, private val editTextString: String = "") : Dialog(context) {
 
     private lateinit var onSubmit: (text: String) -> Unit
 
@@ -26,6 +26,8 @@ class MemoryAddDialog(context: Context) : Dialog(context) {
 
         val inputText = findViewById<TextInputEditText>(R.id.inputText)
         val submitButton = findViewById<Button>(R.id.submitButton)
+
+        inputText.setText(editTextString)
 
         submitButton.setOnClickListener {
             this.onSubmit(inputText.text.toString())

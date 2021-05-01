@@ -1,9 +1,6 @@
 package com.tengri.habitmemories.database.daos
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.tengri.habitmemories.database.entities.Memory
 
 @Dao
@@ -14,6 +11,9 @@ interface MemoryDao {
 
     @Insert
     fun insertAll(vararg memories: Memory): List<Long>
+
+    @Update
+    fun update(memory: Memory)
 
     @Delete
     fun delete(memory: Memory)

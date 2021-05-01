@@ -12,13 +12,27 @@ import com.tengri.habitmemories.state.MemoryState
 
 class MemoryListAdapter(
     private val memoryList: MutableList<Memory>,
-    private val onItemClicked: (pos: Int) -> Unit
+    private val onItemClicked: (pos: Int) -> Unit,
+    private val onEditButtonClicked: (
+        item: Memory,
+        adapterPosition: Int,
+        habitListAdapter: MemoryListAdapter
+    ) -> Unit
 ) : RecyclerView.Adapter<MemoryListAdapter.ModelViewHolder>() {
 
-    class ModelViewHolder(view: View, private val onItemClicked: (pos: Int) -> Unit) :
+    class ModelViewHolder(
+        view: View,
+        private val onItemClicked: (pos: Int) -> Unit,
+        private val onEditButtonClicked: (
+            item: Memory,
+            adapterPosition: Int,
+            habitListAdapter: MemoryListAdapter
+        ) -> Unit
+    ) :
         RecyclerView.ViewHolder(view) {
         private val memoryContentTextView: TextView = view.findViewById(R.id.memoryContent)
         private val deleteButton: ImageButton = view.findViewById(R.id.deleteMemoryButton)
+        private val editButton: ImageButton = view.findViewById(R.id.editMemoryButton)
 
         init {
             view.setOnClickListener {
@@ -32,6 +46,10 @@ class MemoryListAdapter(
                 memoryListAdapter.notifyItemRemoved(adapterPosition)
             }
 
+            editButton.setOnClickListener {
+                onEditButtonClicked(item, adapterPosition, memoryListAdapter)
+            }
+
             memoryContentTextView.text = item.content
         }
 
@@ -42,7 +60,7 @@ class MemoryListAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.memory_list_item, parent, false)
 
-        return ModelViewHolder(view, onItemClicked)
+        return ModelViewHolder(view, onItemClicked, onEditButtonClicked)
     }
 
     override fun getItemCount(): Int {

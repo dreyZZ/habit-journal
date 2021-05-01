@@ -16,5 +16,5 @@ import androidx.room.PrimaryKey
 data class Memory(
     @PrimaryKey(autoGenerate = true) var id: Long,
     val habitId: Long,
-    val content: String?,
+    var content: String?,
 )
