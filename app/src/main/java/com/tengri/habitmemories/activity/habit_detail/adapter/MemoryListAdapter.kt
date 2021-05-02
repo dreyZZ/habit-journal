@@ -1,14 +1,17 @@
 package com.tengri.habitmemories.activity.habit_detail.adapter
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.state.MemoryState
+import com.tengri.habitmemories.util.convertByteArrayToBmp
 
 class MemoryListAdapter(
     private val memoryList: MutableList<Memory>,
@@ -44,6 +47,7 @@ class MemoryListAdapter(
         private val deleteButton: ImageButton = view.findViewById(R.id.deleteMemoryButton)
         private val editButton: ImageButton = view.findViewById(R.id.editMemoryButton)
         private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
+        private val image: ImageView = view.findViewById(R.id.memoryImageView)
 
         init {
             view.setOnClickListener {
@@ -63,6 +67,11 @@ class MemoryListAdapter(
 
             imageAddButton.setOnClickListener {
                 onImageButtonClicked(item, adapterPosition, memoryListAdapter)
+            }
+
+            item.image?.let {
+                val bitmap = convertByteArrayToBmp(it)
+                image.setImageBitmap(Bitmap.createScaledBitmap(bitmap!!, 240, 240, false))
             }
 
             memoryContentTextView.text = item.content

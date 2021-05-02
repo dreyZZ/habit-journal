@@ -1,10 +1,13 @@
 package com.tengri.habitmemories.activity.habit_detail
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.adapter.MemoryListAdapter
@@ -15,6 +18,7 @@ import com.tengri.habitmemories.state.MemoryState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.File
 
 class HabitDetailActivity : AppCompatActivity() {
 
@@ -66,7 +70,28 @@ class HabitDetailActivity : AppCompatActivity() {
                     dialog.show()
                 }, onImageButtonClicked = { memory, pos, adapter ->
 
+                    ImagePicker.with(this)
+                        .compress(1024)
+                        .start { resultCode, data ->
+                            when (resultCode) {
+                                Activity.RESULT_OK -> {
+                                    val file: File = ImagePicker.getFile(data)!!
 
+                                    memory.image = file.readBytes()
+
+                                    adapter.notifyItemChanged(pos)
+
+                                    DBInterface.db.memoryDao().update(memory)
+
+                                }
+                                ImagePicker.RESULT_ERROR -> {
+                                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                                }
+                                else -> {
+                                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
 
                 })
             }

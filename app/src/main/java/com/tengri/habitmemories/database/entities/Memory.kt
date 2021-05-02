@@ -20,7 +20,7 @@ data class Memory(
     var content: String?,
 
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    val image: ByteArray?
+    var image: ByteArray?
 ) {
 
     override fun equals(other: Any?): Boolean {
