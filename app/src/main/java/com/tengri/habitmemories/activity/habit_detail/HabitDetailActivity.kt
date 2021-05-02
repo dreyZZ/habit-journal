@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.adapter.MemoryListAdapter
 import com.tengri.habitmemories.database.DBInterface
+import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.dialogs.MemoryDialog
 import com.tengri.habitmemories.state.MemoryState
@@ -24,20 +25,26 @@ class HabitDetailActivity : AppCompatActivity() {
 
     private lateinit var memoryListView: RecyclerView
     private var habitId: Long = -1
+    private lateinit var habit: Habit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_habit_detail)
 
         habitId = intent.extras!!.getLong("habitId")
+        habit = DBInterface.db.habitDao().findById(habitId)
 
         initializeViews(habitId)
     }
 
     private fun initializeViews(habitId: Long) {
-        memoryListView = findViewById(R.id.memoryList)
+
+        // toolbar
+        val toolbar = supportActionBar
+        toolbar!!.title = habit.name
 
         // recyclerview
+        memoryListView = findViewById(R.id.memoryList)
         Observable.fromCallable {
             return@fromCallable MemoryState.getMemories(habitId)
         }

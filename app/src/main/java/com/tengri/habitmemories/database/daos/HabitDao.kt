@@ -14,6 +14,9 @@ interface HabitDao {
     @Query("SELECT * FROM habit WHERE name LIKE :name LIMIT 1")
     fun findByName(name: String): Habit
 
+    @Query("SELECT * FROM habit WHERE id LIKE :id LIMIT 1")
+    fun findById(id: Long): Habit
+
     @Update
     fun update(habit: Habit)
 
