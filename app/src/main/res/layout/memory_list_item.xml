@@ -16,13 +16,15 @@
 
         <TextView
             android:id="@+id/memoryContent"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-black"
             android:text="Memory Content"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/editMemoryButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
