@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.state.MemoryState
@@ -70,8 +71,10 @@ class MemoryListAdapter(
             }
 
             item.image?.let {
-                val bitmap = convertByteArrayToBmp(it)
-                image.setImageBitmap(Bitmap.createScaledBitmap(bitmap!!, 240, 240, false))
+                Glide.with(this.itemView)
+                    .load(it)
+                    .override(300, 300)
+                    .into(image)
             }
 
             memoryContentTextView.text = item.content
