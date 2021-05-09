@@ -11,44 +11,18 @@ import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.state.HabitState
 
 class HabitListAdapter(
-    private val habitList: MutableList<Habit>,
-    private val onItemClicked: (pos: Int) -> Unit,
-    private val onEditButtonClicked: (
-        item: Habit,
-        adapterPosition: Int,
-        habitListAdapter: HabitListAdapter
-    ) -> Unit
+    private val habitList: MutableList<Habit>
 ) : RecyclerView.Adapter<HabitListAdapter.ModelViewHolder>() {
 
     class ModelViewHolder(
-        view: View,
-        private val onItemClicked: (pos: Int) -> Unit,
-        private val onEditButtonClicked: (
-            item: Habit,
-            adapterPosition: Int,
-            habitListAdapter: HabitListAdapter
-        ) -> Unit
+        view: View
     ) : RecyclerView.ViewHolder(view) {
         private val habitTextView: TextView = view.findViewById(R.id.habitName)
-        private val deleteButton: ImageButton = view.findViewById(R.id.habitDeleteButton)
-        private val editButton: ImageButton = view.findViewById(R.id.editHabitButton)
 
         init {
-            view.setOnClickListener {
-                onItemClicked(adapterPosition)
-            }
         }
 
         fun bindItems(item: Habit, habitListAdapter: HabitListAdapter) {
-            deleteButton.setOnClickListener {
-                HabitState.deleteHabit(item)
-                habitListAdapter.notifyItemRemoved(adapterPosition)
-            }
-
-            editButton.setOnClickListener {
-                onEditButtonClicked(item, adapterPosition, habitListAdapter)
-            }
-
             habitTextView.text = item.name
         }
     }
@@ -57,7 +31,7 @@ class HabitListAdapter(
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.habit_list_item, parent, false)
 
-        return ModelViewHolder(view, onItemClicked, onEditButtonClicked)
+        return ModelViewHolder(view)
     }
 
     override fun getItemCount(): Int {
