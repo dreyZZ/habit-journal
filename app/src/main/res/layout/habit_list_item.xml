@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#CDCDCD"
-    app:cardCornerRadius="15dp"
-    android:layout_margin="6dp">
+    app:cardCornerRadius="16dp"
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:id="@+id/rowBG"
@@ -19,7 +19,7 @@
 
         <RelativeLayout
             android:id="@+id/edit_task"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
@@ -46,7 +46,7 @@
 
         <RelativeLayout
             android:id="@+id/delete_task"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="2dp"
             android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-black"
             android:text="Habit Name"
