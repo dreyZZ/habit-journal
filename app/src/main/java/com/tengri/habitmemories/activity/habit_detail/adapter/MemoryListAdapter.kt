@@ -1,6 +1,5 @@
 package com.tengri.habitmemories.activity.habit_detail.adapter
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Memory
+import com.tengri.habitmemories.dialogs.ImageDialog
 import com.tengri.habitmemories.state.MemoryState
-import com.tengri.habitmemories.util.convertByteArrayToBmp
+import com.tengri.habitmemories.util.showImage
 
 class MemoryListAdapter(
     private val memoryList: MutableList<Memory>,
@@ -70,11 +70,15 @@ class MemoryListAdapter(
                 onImageButtonClicked(item, adapterPosition, memoryListAdapter)
             }
 
-            item.image?.let {
+            item.image?.let { imageBytes ->
                 Glide.with(this.itemView)
-                    .load(it)
+                    .load(imageBytes)
                     .override(300, 300)
                     .into(image)
+
+                image.setOnClickListener {
+                    ImageDialog(itemView.context, imageBytes).show()
+                }
             }
 
             memoryContentTextView.text = item.content
