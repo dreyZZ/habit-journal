@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
-
         initializeViews()
     }
 
@@ -61,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         addTouchListener()
+        addDragDrop()
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -72,6 +72,36 @@ class MainActivity : AppCompatActivity() {
 
             dialog.show()
         }
+    }
+
+    private fun addDragDrop() {
+        // drag-drop functionality
+        val simpleCallback =
+            object : SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val from = viewHolder.adapterPosition
+                    val to = target.adapterPosition
+
+                    HabitState.swapIds(from, to)
+
+                    Collections.swap(habits, from, to)
+
+                    recyclerView.adapter!!.notifyItemMoved(from, to)
+
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                }
+
+            }
+
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(habitListRecyclerView)
     }
 
     private fun addTouchListener() {
@@ -120,33 +150,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         habitListRecyclerView.addOnItemTouchListener(touchListener)
-
-        // drag-drop functionality
-        val simpleCallback = object : SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                val from = viewHolder.adapterPosition
-                val to = target.adapterPosition
-
-                HabitState.swapIds(from, to)
-
-                Collections.swap(habits, from, to)
-
-                recyclerView.adapter!!.notifyItemMoved(from, to)
-
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            }
-
-        }
-
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
-        itemTouchHelper.attachToRecyclerView(habitListRecyclerView)
     }
 
 }
