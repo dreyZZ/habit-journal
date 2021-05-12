@@ -18,7 +18,7 @@ interface HabitDao {
     fun findById(id: Long): Habit
 
     @Update
-    fun update(habit: Habit)
+    fun update(vararg habits: Habit)
 
     @Insert
     fun insertAll(vararg habits: Habit): List<Long>

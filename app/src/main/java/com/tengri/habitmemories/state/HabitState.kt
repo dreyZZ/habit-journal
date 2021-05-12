@@ -12,7 +12,8 @@ object HabitState {
     }
 
     fun getDBHabits(): MutableList<Habit> {
-        habits = habitDao.getAll() as MutableList<Habit>
+        habits = habitDao.getAll().toMutableList()
+        habits.sortBy { it.id }
         return habits
     }
 
@@ -33,5 +34,17 @@ object HabitState {
 
     fun lastIndex(): Int {
         return habits.size - 1
+    }
+
+    fun swapIds(from: Int, to: Int) {
+        val habit1 = habits[from]
+        val habit2 = habits[to]
+
+        val id1 = habit1.id
+
+        habit1.id = habit2.id
+        habit2.id = id1
+
+        habitDao.update(habit1, habit2)
     }
 }
