@@ -1,5 +1,7 @@
 package com.tengri.habitmemories.activity.habit_detail.adapter
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.dialogs.ImageDialog
 import com.tengri.habitmemories.state.MemoryState
-import com.tengri.habitmemories.util.showImage
 
 class MemoryListAdapter(
     private val memoryList: MutableList<Memory>,
@@ -74,6 +76,8 @@ class MemoryListAdapter(
                 Glide.with(this.itemView)
                     .load(imageBytes)
                     .override(300, 300)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .placeholder(ColorDrawable(Color.BLACK))
                     .into(image)
 
                 image.setOnClickListener {

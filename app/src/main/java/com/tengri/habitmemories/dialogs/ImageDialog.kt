@@ -2,10 +2,13 @@ package com.tengri.habitmemories.dialogs
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.github.chrisbanes.photoview.PhotoView
 import com.tengri.habitmemories.R
 
@@ -27,6 +30,8 @@ class ImageDialog(context: Context, private val imageBytes: ByteArray) : Dialog(
         Glide.with(context)
             .load(imageBytes)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .placeholder(ColorDrawable(Color.BLACK))
             .into(photoView)
 
     }
