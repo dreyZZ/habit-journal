@@ -13,7 +13,7 @@ object HabitState {
 
     fun getDBHabits(): MutableList<Habit> {
         habits = habitDao.getAll().toMutableList()
-        habits.sortBy { it.id }
+        habits.sortBy { it.position }
         return habits
     }
 
@@ -21,7 +21,10 @@ object HabitState {
         // TODO: 24/04/2021 block ediyor olabilir
         val ids = habitDao.insertAll(habit)
 
-        habit.id = ids[0].toLong()
+        habit.id = ids[0]
+        habit.position = ids[0]
+
+        habitDao.update(habit)
 
         habits.add(habit)
     }
@@ -40,10 +43,10 @@ object HabitState {
         val habit1 = habits[from]
         val habit2 = habits[to]
 
-        val id1 = habit1.id
+        val pos1 = habit1.position
 
-        habit1.id = habit2.id
-        habit2.id = id1
+        habit1.position = habit2.position
+        habit2.position = pos1
 
         habitDao.update(habit1, habit2)
     }

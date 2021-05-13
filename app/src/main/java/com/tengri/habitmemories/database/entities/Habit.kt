@@ -1,6 +1,5 @@
 package com.tengri.habitmemories.database.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,4 +7,5 @@ import androidx.room.PrimaryKey
 data class Habit(
     @PrimaryKey(autoGenerate = true) var id: Long,
     var name: String?,
+    var position: Long? = null
 )
