@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="Memory Text"
-        android:textColorHint="@color/white"
+        android:textColorHint="#A5A5A5"
         android:textColor="@color/white"
         />
 
