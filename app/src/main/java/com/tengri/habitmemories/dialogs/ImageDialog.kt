@@ -4,9 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.chrisbanes.photoview.PhotoView
 import com.tengri.habitmemories.R
-import com.tengri.habitmemories.util.convertByteArrayToBmp
 
 class ImageDialog(context: Context, private val imageBytes: ByteArray) : Dialog(context) {
 
@@ -22,8 +23,11 @@ class ImageDialog(context: Context, private val imageBytes: ByteArray) : Dialog(
         window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         val photoView = findViewById<PhotoView>(R.id.imageView)
-        val bmp = convertByteArrayToBmp(imageBytes)
-        photoView.setImageBitmap(bmp)
+
+        Glide.with(context)
+            .load(imageBytes)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(photoView)
 
     }
 }
