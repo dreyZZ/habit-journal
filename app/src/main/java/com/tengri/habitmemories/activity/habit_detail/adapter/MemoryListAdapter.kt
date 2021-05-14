@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.tengri.habitmemories.R
+import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Memory
 import com.tengri.habitmemories.dialogs.ImageDialog
 import com.tengri.habitmemories.state.MemoryState
@@ -30,6 +31,21 @@ class MemoryListAdapter(
         memoryListAdapter: MemoryListAdapter
     ) -> Unit
 ) : RecyclerView.Adapter<MemoryListAdapter.ModelViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.memory_list_item, parent, false)
+
+        return ModelViewHolder(view, onItemClicked, onEditButtonClicked, onImageButtonClicked)
+    }
+
+    override fun getItemCount(): Int {
+        return memoryList.size
+    }
+
+    override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
+        holder.bindItems(memoryList[position], this)
+    }
 
     class ModelViewHolder(
         view: View,
@@ -50,7 +66,7 @@ class MemoryListAdapter(
         private val deleteButton: ImageButton = view.findViewById(R.id.deleteMemoryButton)
         private val editButton: ImageButton = view.findViewById(R.id.editMemoryButton)
         private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
-        private val image: ImageView = view.findViewById(R.id.memoryImageView)
+        private val imageView: ImageView = view.findViewById(R.id.memoryImageView)
 
         init {
             view.setOnClickListener {
@@ -78,31 +94,27 @@ class MemoryListAdapter(
                     .override(300, 300)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .placeholder(ColorDrawable(Color.BLACK))
-                    .into(image)
+                    .into(imageView)
 
-                image.setOnClickListener {
-                    ImageDialog(itemView.context, imageBytes).show()
+                imageView.setOnClickListener {
+                    ImageDialog(
+                        itemView.context,
+                        imageBytes,
+                        onImageButtonClicked = {
+                            item.image = null
+                            DBInterface.db.memoryDao().update(item)
+                            memoryListAdapter.notifyItemChanged(adapterPosition)
+                        }
+                    ).show()
                 }
+            } ?: run {
+                Glide.with(this.itemView)
+                    .clear(imageView)
             }
 
             memoryContentTextView.text = item.content
         }
 
 
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.memory_list_item, parent, false)
-
-        return ModelViewHolder(view, onItemClicked, onEditButtonClicked, onImageButtonClicked)
-    }
-
-    override fun getItemCount(): Int {
-        return memoryList.size
-    }
-
-    override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.bindItems(memoryList[position], this)
     }
 }
