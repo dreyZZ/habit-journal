@@ -74,4 +74,10 @@ dependencies {
     // Image Dialog
     implementation 'com.github.chrisbanes:PhotoView:2.2.0'
 
+    // Color Picker
+    implementation "dev.sasikanth:colorsheet:1.0.1"
+
+    // Swipe
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+
 }

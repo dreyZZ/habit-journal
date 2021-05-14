@@ -1,7 +1,9 @@
 package com.tengri.habitmemories.activity.main
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -10,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.R
-import com.tengri.habitmemories.activity.common.RecyclerTouchListener
-import com.tengri.habitmemories.activity.common.RecyclerTouchListener.OnRowClickListener
 import com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
 import com.tengri.habitmemories.database.DBInterface
@@ -19,6 +19,7 @@ import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.dialogs.HabitDialog
 import com.tengri.habitmemories.state.HabitState
 import com.tengri.habitmemories.state.HabitState.habits
+import dev.sasikanth.colorsheet.ColorSheet
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -55,12 +56,15 @@ class MainActivity : AppCompatActivity() {
                     false
                 )
                 habitListRecyclerView.adapter = HabitListAdapter(
-                    habits as MutableList<Habit>
+                    habits,
+                    this::onRowClicked,
+                    this::onColorPickerClicked,
+                    this::onEditButtonClicked,
+                    this::onDeleteButtonClicked
                 )
             }
 
-        addTouchListener()
-        addDragDrop()
+//        addDragDrop()
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -104,52 +108,60 @@ class MainActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(habitListRecyclerView)
     }
 
-    private fun addTouchListener() {
-        val touchListener = RecyclerTouchListener(this, habitListRecyclerView)
-        touchListener
-            .setClickable(object : OnRowClickListener {
-                override fun onRowClicked(position: Int) {
-                    val rowHabit = habits[position]
+    private fun onRowClicked(position: Int) {
+        val rowHabit = habits[position]
 
-                    val intent = Intent(applicationContext, HabitDetailActivity::class.java)
-                    intent.putExtra("habitId", rowHabit.id)
+        val intent = Intent(applicationContext, HabitDetailActivity::class.java)
+        intent.putExtra("habitId", rowHabit.id)
 
-                    startActivity(intent)
-                }
+        startActivity(intent)
+    }
 
-                override fun onIndependentViewClicked(independentViewID: Int, position: Int) {}
+    private fun onColorPickerClicked() {
+        ColorSheet().colorPicker(
+            colors = intArrayOf(
+                Color.BLACK,
+                Color.BLUE,
+                Color.CYAN,
+                Color.GRAY,
+                Color.GREEN,
+                Color.LTGRAY,
+                Color.MAGENTA,
+                Color.RED
+            ),
+            noColorOption = true,
+            listener = { color ->
+                // Handle color
             })
-            .setSwipeOptionViews(R.id.delete_task, R.id.edit_task)
-            .setSwipeable(R.id.rowFG, R.id.rowBG
-            ) { viewID, position ->
-                val adapter = habitListRecyclerView.adapter!!
-                val habit = habits[position]
+            .show(supportFragmentManager)
+    }
 
-                when (viewID) {
-                    R.id.delete_task -> {
-                        HabitState.deleteHabit(habit)
-                        adapter.notifyItemRemoved(position)
-                    }
-                    R.id.edit_task -> {
-                        // open edit dialog
-                        val dialog = HabitDialog(this, habit.name!!)
+    private fun onEditButtonClicked(pos: Int) {
+        val adapter = habitListRecyclerView.adapter!!
+        val habit = habits[pos]
 
-                        dialog.setOnSubmit {
-                            // update habit
-                            habit.name = it
+        val dialog = HabitDialog(this, habit.name!!)
 
-                            // update db
-                            DBInterface.db.habitDao().update(habit)
+        dialog.setOnSubmit {
+            // update habit
+            habit.name = it
 
-                            // update adapter
-                            adapter.notifyItemChanged(position)
-                        }
+            // update db
+            DBInterface.db.habitDao().update(habit)
 
-                        dialog.show()
-                    }
-                }
-            }
-        habitListRecyclerView.addOnItemTouchListener(touchListener)
+            // update adapter
+            adapter.notifyItemChanged(pos)
+        }
+
+        dialog.show()
+    }
+
+    private fun onDeleteButtonClicked(pos: Int) {
+        val adapter = habitListRecyclerView.adapter!!
+        val habit = habits[pos]
+
+        HabitState.deleteHabit(habit)
+        adapter.notifyItemRemoved(pos)
     }
 
 }
