@@ -13,8 +13,14 @@ object DBInterface {
         }
     }
 
+    private val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE Habit ADD COLUMN color INTEGER")
+        }
+    }
+
     val db = Room.databaseBuilder(
         App.instance.applicationContext,
             AppDatabase::class.java, "habit-memories"
-        ).addMigrations(MIGRATION_1_2).allowMainThreadQueries().build()
+        ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).allowMainThreadQueries().build()
 }

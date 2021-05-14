@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:focusableInTouchMode="false"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="#CDCDCD"
     app:cardCornerRadius="16dp">
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout

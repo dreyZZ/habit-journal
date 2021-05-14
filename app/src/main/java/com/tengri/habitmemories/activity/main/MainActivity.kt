@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-//        addDragDrop()
+        addDragDrop()
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -117,10 +117,13 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onColorPickerClicked() {
+    private fun onColorPickerClicked(pos: Int, foreground :View) {
+        val adapter = habitListRecyclerView.adapter!!
+        val habit = habits[pos]
+
         ColorSheet().colorPicker(
             colors = intArrayOf(
-                Color.BLACK,
+                0xffffff00.toInt(),
                 Color.BLUE,
                 Color.CYAN,
                 Color.GRAY,
@@ -131,7 +134,17 @@ class MainActivity : AppCompatActivity() {
             ),
             noColorOption = true,
             listener = { color ->
-                // Handle color
+                if (color != -1) {
+                    habit.color = color
+
+                    DBInterface.db.habitDao().update(habit)
+                } else {
+                    habit.color = null
+
+                    DBInterface.db.habitDao().update(habit)
+                }
+
+                adapter.notifyItemChanged(pos)
             })
             .show(supportFragmentManager)
     }

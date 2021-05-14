@@ -11,12 +11,13 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.entities.Habit
+import com.tengri.habitmemories.util.defaultRowColor
 
 
 class HabitListAdapter(
     private val habitList: MutableList<Habit>,
     private val onRowClicked: (Int) -> Unit,
-    private val onColorPickerSelected: () -> Unit,
+    private val onColorPickerSelected: (Int, View) -> Unit,
     private val onEditClicked: (Int) -> Unit,
     private val onDeleteClicked: (Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ModelViewHolder>() {
@@ -50,7 +51,7 @@ class HabitListAdapter(
     class ModelViewHolder(
         view: View,
         private val onRowClicked: (Int) -> Unit,
-        private val onColorPickerSelected: () -> Unit,
+        private val onColorPickerSelected: (Int, View) -> Unit,
         private val onEditClicked: (Int) -> Unit,
         private val onDeleteClicked: (Int) -> Unit
     ) : RecyclerView.ViewHolder(view) {
@@ -59,6 +60,8 @@ class HabitListAdapter(
         private val editHabitButton: ImageView = view.findViewById(R.id.editHabitButton)
         private val deleteHabitButton: ImageView = view.findViewById(R.id.deleteHabitButton)
         val swipeLayout: SwipeRevealLayout = view.findViewById(R.id.swipeLayout)
+        private val foreground: View = view.findViewById(R.id.rowFG)
+
 
         init {
             habitTextView.setOnClickListener {
@@ -66,7 +69,7 @@ class HabitListAdapter(
             }
 
             colorPickerButton.setOnClickListener {
-                onColorPickerSelected()
+                onColorPickerSelected(adapterPosition, foreground)
             }
 
             editHabitButton.setOnClickListener {
@@ -82,6 +85,12 @@ class HabitListAdapter(
 
         fun bindItems(item: Habit, habitListAdapter: HabitListAdapter) {
             habitTextView.text = item.name
+
+            if (item.color != null) {
+                foreground.setBackgroundColor(item.color!!)
+            } else {
+                foreground.setBackgroundColor(defaultRowColor)
+            }
         }
     }
 }
