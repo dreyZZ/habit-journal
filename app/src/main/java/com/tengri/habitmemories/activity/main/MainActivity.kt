@@ -1,8 +1,9 @@
 package com.tengri.habitmemories.activity.main
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -39,6 +40,26 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         initializeViews()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.action_add -> {
+//                addSomething()
+                true
+            }
+            R.id.action_settings -> {
+//                startSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initializeViews() {
@@ -118,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onColorPickerClicked(pos: Int, foreground :View) {
+    private fun onColorPickerClicked(pos: Int, foreground: View) {
         val adapter = habitListRecyclerView.adapter!!
         val habit = habits[pos]
 

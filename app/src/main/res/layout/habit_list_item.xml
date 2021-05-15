@@ -64,6 +64,7 @@
                 android:textSize="20sp"
                 android:layout_marginBottom="2dp"
                 android:gravity="center_vertical"
+                android:textColor="@color/main_background_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/colorPickerButton"
                 app:layout_constraintStart_toStartOf="parent"
