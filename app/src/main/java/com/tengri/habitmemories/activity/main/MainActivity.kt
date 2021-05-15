@@ -19,6 +19,7 @@ import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.dialogs.HabitDialog
 import com.tengri.habitmemories.state.HabitState
 import com.tengri.habitmemories.state.HabitState.habits
+import com.tengri.habitmemories.util.rowColors
 import dev.sasikanth.colorsheet.ColorSheet
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -122,16 +123,7 @@ class MainActivity : AppCompatActivity() {
         val habit = habits[pos]
 
         ColorSheet().colorPicker(
-            colors = intArrayOf(
-                0xffffff00.toInt(),
-                Color.BLUE,
-                Color.CYAN,
-                Color.GRAY,
-                Color.GREEN,
-                Color.LTGRAY,
-                Color.MAGENTA,
-                Color.RED
-            ),
+            colors = rowColors,
             noColorOption = true,
             listener = { color ->
                 if (color != -1) {
