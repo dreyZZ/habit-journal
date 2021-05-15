@@ -30,7 +30,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var habitListRecyclerView: RecyclerView
+    private lateinit var mHabitListRecyclerView: RecyclerView
+    private lateinit var mHabitListAdapter: HabitListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +49,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
         return when (item.itemId) {
-            R.id.action_add -> {
-//                addSomething()
+            R.id.action_filter -> {
+                ColorSheet().colorPicker(
+                    colors = rowColors,
+                    noColorOption = true,
+                    listener = { color ->
+                        mHabitListAdapter.filter!!.filter(color.toString())
+                    })
+                    .show(supportFragmentManager)
                 true
             }
             R.id.action_settings -> {
@@ -63,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        habitListRecyclerView = findViewById(R.id.habitList)
+        mHabitListRecyclerView = findViewById(R.id.habitList)
 
         // recyclerview
         Observable.fromCallable {
@@ -72,18 +78,19 @@ class MainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { habits ->
-                habitListRecyclerView.layoutManager = LinearLayoutManager(
+                mHabitListRecyclerView.layoutManager = LinearLayoutManager(
                     this,
                     LinearLayoutManager.VERTICAL,
                     false
                 )
-                habitListRecyclerView.adapter = HabitListAdapter(
+                mHabitListAdapter = HabitListAdapter(
                     habits,
                     this::onRowClicked,
                     this::onColorPickerClicked,
                     this::onEditButtonClicked,
                     this::onDeleteButtonClicked
                 )
+                mHabitListRecyclerView.adapter = mHabitListAdapter
             }
 
         addDragDrop()
@@ -93,7 +100,7 @@ class MainActivity : AppCompatActivity() {
             val dialog = HabitDialog(this)
             dialog.setOnSubmit {
                 HabitState.addHabit(Habit(0, it))
-                habitListRecyclerView.adapter!!.notifyItemInserted(HabitState.lastIndex())
+                mHabitListAdapter.notifyItemInserted(HabitState.lastIndex())
             }
 
             dialog.show()
@@ -127,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
-        itemTouchHelper.attachToRecyclerView(habitListRecyclerView)
+        itemTouchHelper.attachToRecyclerView(mHabitListRecyclerView)
     }
 
     private fun onRowClicked(position: Int) {
@@ -140,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onColorPickerClicked(pos: Int, foreground: View) {
-        val adapter = habitListRecyclerView.adapter!!
+        val adapter = mHabitListAdapter
         val habit = habits[pos]
 
         ColorSheet().colorPicker(
@@ -163,7 +170,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onEditButtonClicked(pos: Int) {
-        val adapter = habitListRecyclerView.adapter!!
+        val adapter = mHabitListAdapter
         val habit = habits[pos]
 
         val dialog = HabitDialog(this, habit.name!!)
@@ -183,7 +190,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onDeleteButtonClicked(pos: Int) {
-        val adapter = habitListRecyclerView.adapter!!
+        val adapter = mHabitListAdapter
         val habit = habits[pos]
 
         HabitState.deleteHabit(habit)
