@@ -44,7 +44,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
         // toolbar
         val toolbar = supportActionBar
-        toolbar!!.title = habit.name
+        toolbar!!.title = "${habit.name} Memories"
 
         // recyclerview
         memoryListView = findViewById(R.id.memoryList)
