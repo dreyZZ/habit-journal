@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
                     .show(supportFragmentManager)
                 true
             }
+            R.id.action_clear_filters -> {
+                mHabitListAdapter.filter!!.filter("clear")
+                true
+            }
             R.id.action_settings -> {
 //                startSettings()
                 true

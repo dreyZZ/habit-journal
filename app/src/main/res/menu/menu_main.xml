@@ -10,6 +10,11 @@
         android:title="Add">
     </item>
     <item
+        android:id="@+id/action_clear_filters"
+        app:showAsAction="never"
+        android:title="Clear Filters">
+    </item>
+    <item
         android:id="@+id/action_settings"
         app:showAsAction="never"
         android:title="Settings">

@@ -49,10 +49,10 @@ class HabitListAdapter(
 
     override fun getFilter(): Filter? {
         return object : Filter() {
-            protected override fun performFiltering(charSequence: CharSequence): FilterResults? {
+            override fun performFiltering(charSequence: CharSequence): FilterResults? {
                 filteredHabits = habitList
                 when (charSequence) {
-                    "" -> {
+                    "clear" -> {
                     }
                     else -> {
                         val colorCode = Integer.parseInt(charSequence.toString())
@@ -72,7 +72,7 @@ class HabitListAdapter(
                 return filterResults
             }
 
-            protected override fun publishResults(
+            override fun publishResults(
                 charSequence: CharSequence?,
                 filterResults: FilterResults
             ) {
