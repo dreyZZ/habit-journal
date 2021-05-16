@@ -22,6 +22,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.io.File
+import java.util.*
 
 class HabitDetailActivity : AppCompatActivity() {
 
@@ -113,7 +114,7 @@ class HabitDetailActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val dialog = MemoryDialog(this)
             dialog.setOnSubmit {
-                MemoryState.addMemory(Memory(0, habitId, it, null))
+                MemoryState.addMemory(Memory(0, habitId, it, null, Date().time))
                 memoryListView.adapter!!.notifyItemInserted(MemoryState.lastIndex())
             }
 
