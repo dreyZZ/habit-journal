@@ -27,8 +27,15 @@ object DBInterface {
         }
     }
 
+    private val MIGRATION_4_5 = object : Migration(4, 5) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE Memory RENAME TO Experience")
+        }
+    }
+
     val db = Room.databaseBuilder(
         App.instance.applicationContext,
-            AppDatabase::class.java, "habit-memories"
-        ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4).allowMainThreadQueries().build()
+        AppDatabase::class.java, "habit-memories"
+    ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+        .allowMainThreadQueries().build()
 }

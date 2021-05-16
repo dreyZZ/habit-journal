@@ -9,7 +9,7 @@ import android.widget.Button
 import com.google.android.material.textfield.TextInputEditText
 import com.tengri.habitmemories.R
 
-class MemoryDialog(context: Context, private val editTextString: String = "") : Dialog(context) {
+class ExperienceDialog(context: Context, private val editTextString: String = "") : Dialog(context) {
 
     private lateinit var onSubmit: (text: String) -> Unit
 
@@ -20,7 +20,7 @@ class MemoryDialog(context: Context, private val editTextString: String = "") : 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.dialog_add_memory)
+        setContentView(R.layout.dialog_add_experience)
 
         window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 

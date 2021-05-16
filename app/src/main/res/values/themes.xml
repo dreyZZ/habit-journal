@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.HabitMemories" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.HabitExperience" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:forceDarkAllowed">true</item>
 
         <!-- Primary brand color. -->
@@ -27,14 +27,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.HabitMemories.NoActionBar">
+    <style name="Theme.HabitExperience.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.HabitMemories.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.HabitExperience.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.HabitMemories.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.HabitExperience.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="DialogTheme" parent="android:Theme.Dialog">
         <item name="android:layout_width">fill_parent</item>

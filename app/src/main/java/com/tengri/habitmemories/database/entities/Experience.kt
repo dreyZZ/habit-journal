@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
         onDelete = CASCADE
     )]
 )
-data class Memory(
+data class Experience(
     @PrimaryKey(autoGenerate = true) var id: Long,
     val habitId: Long,
     var content: String?,
@@ -29,7 +29,7 @@ data class Memory(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Memory
+        other as Experience
 
         if (id != other.id) return false
         if (habitId != other.habitId) return false

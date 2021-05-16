@@ -12,12 +12,12 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.App.Companion.sharedPreferences
 import com.tengri.habitmemories.R
-import com.tengri.habitmemories.activity.habit_detail.adapter.MemoryListAdapter
+import com.tengri.habitmemories.activity.habit_detail.adapter.ExperienceListAdapter
 import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Habit
-import com.tengri.habitmemories.database.entities.Memory
-import com.tengri.habitmemories.dialogs.MemoryDialog
-import com.tengri.habitmemories.state.MemoryState
+import com.tengri.habitmemories.database.entities.Experience
+import com.tengri.habitmemories.dialogs.ExperienceDialog
+import com.tengri.habitmemories.state.ExperienceState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -26,7 +26,7 @@ import java.util.*
 
 class HabitDetailActivity : AppCompatActivity() {
 
-    private lateinit var memoryListView: RecyclerView
+    private lateinit var experienceListView: RecyclerView
     private var habitId: Long = -1
     private lateinit var habit: Habit
 
@@ -46,41 +46,41 @@ class HabitDetailActivity : AppCompatActivity() {
 
         // toolbar
         val toolbar = supportActionBar
-        toolbar!!.title = "${habit.name} Memories"
+        toolbar!!.title = "${habit.name} Experiences"
 
         // recyclerview
-        memoryListView = findViewById(R.id.memoryList)
+        experienceListView = findViewById(R.id.experienceList)
         Observable.fromCallable {
-            return@fromCallable MemoryState.getMemories(habitId)
+            return@fromCallable ExperienceState.get(habitId)
         }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { memories ->
-                memoryListView.layoutManager = LinearLayoutManager(
+            .subscribe { experiences ->
+                experienceListView.layoutManager = LinearLayoutManager(
                     this,
                     LinearLayoutManager.VERTICAL,
                     false
                 )
-                memoryListView.adapter = MemoryListAdapter(memories, onItemClicked = {
-                    val memoryItem = memories[it]
-                    Log.d("MEMORIES: ", memoryItem.content!!)
-                }, onEditButtonClicked = { memory, pos, adapter ->
+                experienceListView.adapter = ExperienceListAdapter(experiences, onItemClicked = {
+                    val item = experiences[it]
+                    Log.d("Experiences: ", item.content!!)
+                }, onEditButtonClicked = { experience, pos, adapter ->
                     // open edit dialog
-                    val dialog = MemoryDialog(this, memory.content!!)
+                    val dialog = ExperienceDialog(this, experience.content!!)
 
                     dialog.setOnSubmit {
-                        // update memory
-                        memory.content = it
+                        // update experience
+                        experience.content = it
 
                         // update db
-                        DBInterface.db.memoryDao().update(memory)
+                        DBInterface.db.experienceDao().update(experience)
 
                         // update adapter
                         adapter.notifyItemChanged(pos)
                     }
 
                     dialog.show()
-                }, onImageButtonClicked = { memory, pos, adapter ->
+                }, onImageButtonClicked = { experience, pos, adapter ->
 
                     val compressLevel = sharedPreferences.getString("compress_level", "1")!!.toInt()
 
@@ -91,11 +91,11 @@ class HabitDetailActivity : AppCompatActivity() {
                                 Activity.RESULT_OK -> {
                                     val file: File = ImagePicker.getFile(data)!!
 
-                                    memory.image = file.readBytes()
+                                    experience.image = file.readBytes()
 
                                     adapter.notifyItemChanged(pos)
 
-                                    DBInterface.db.memoryDao().update(memory)
+                                    DBInterface.db.experienceDao().update(experience)
 
                                 }
                                 ImagePicker.RESULT_ERROR -> {
@@ -112,10 +112,10 @@ class HabitDetailActivity : AppCompatActivity() {
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val dialog = MemoryDialog(this)
+            val dialog = ExperienceDialog(this)
             dialog.setOnSubmit {
-                MemoryState.addMemory(Memory(0, habitId, it, null, Date().time))
-                memoryListView.adapter!!.notifyItemInserted(MemoryState.lastIndex())
+                ExperienceState.add(Experience(0, habitId, it, null, Date().time))
+                experienceListView.adapter!!.notifyItemInserted(ExperienceState.lastIndex())
             }
 
             dialog.show()

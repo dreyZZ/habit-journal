@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Habit Memories"
+rootProject.name = "Habit Experience"
