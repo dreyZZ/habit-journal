@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.tengri.habitmemories.App.Companion.sharedPreferences
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.adapter.MemoryListAdapter
 import com.tengri.habitmemories.database.DBInterface
@@ -80,8 +81,10 @@ class HabitDetailActivity : AppCompatActivity() {
                     dialog.show()
                 }, onImageButtonClicked = { memory, pos, adapter ->
 
+                    val compressLevel = sharedPreferences.getString("compress_level", "1")!!.toInt()
+
                     ImagePicker.with(this)
-                        .compress(1024)
+                        .compress(compressLevel * 1024)
                         .start { resultCode, data ->
                             when (resultCode) {
                                 Activity.RESULT_OK -> {

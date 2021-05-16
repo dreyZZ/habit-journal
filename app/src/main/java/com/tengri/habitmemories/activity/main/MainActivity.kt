@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
+import com.tengri.habitmemories.activity.settings.SettingsActivity
 import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.dialogs.HabitDialog
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_settings -> {
-//                startSettings()
+                startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
