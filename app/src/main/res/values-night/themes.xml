@@ -9,8 +9,8 @@
         <!-- Text Colors -->
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/main_background_color</item>
-        <item name="android:textColorTertiary">@color/main_background_color</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorTertiary">@color/white</item>
         <item name="android:colorControlNormal">@color/main_background_color</item>
         <item name="android:actionMenuTextColor">@color/white</item>
 

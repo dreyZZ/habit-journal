@@ -5,14 +5,16 @@
     <application
         android:name=".App"
         android:allowBackup="true"
+        android:forceDarkAllowed="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HabitMemories"
-        android:forceDarkAllowed="true">
-
-        <activity android:name=".activity.habit_detail.HabitDetailActivity"></activity>
+        android:theme="@style/Theme.HabitMemories">
+        <activity
+            android:name=".activity.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".activity.habit_detail.HabitDetailActivity" />
         <activity
             android:name=".activity.main.MainActivity"
             android:label="@string/title_activity_main"
