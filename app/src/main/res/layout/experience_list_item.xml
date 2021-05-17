@@ -7,66 +7,93 @@
     app:cardCornerRadius="16dp"
     android:layout_margin="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.chauthai.swipereveallayout.SwipeRevealLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
+        app:mode="same_level"
+        app:dragEdge="right"
+        android:focusableInTouchMode="false">
 
-
-        <TextView
-            android:id="@+id/experienceContent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Experience Content"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/editExperienceButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/editExperienceButton"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00000000"
-            android:src="@drawable/ic_baseline_edit_24"
-            app:layout_constraintEnd_toStartOf="@+id/addImageButton"
-            app:layout_constraintRight_toLeftOf="@id/deleteExperienceButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:minHeight="50dp"
+            android:background="@color/swipe_row_background_color"
+            >
 
-        <ImageButton
-            android:id="@+id/addImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00000000"
-            android:src="@drawable/ic_baseline_image_24"
-            app:layout_constraintEnd_toStartOf="@+id/deleteExperienceButton"
-            app:layout_constraintRight_toLeftOf="@id/deleteExperienceButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/editExperienceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00000000"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:tint="@color/white"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintEnd_toStartOf="@+id/addImageButton"
+                app:layout_constraintRight_toLeftOf="@id/deleteExperienceButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/deleteExperienceButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_baseline_delete_24"/>
+            <ImageButton
+                android:id="@+id/addImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_image_24"
+                android:backgroundTint="#00000000"
+                android:tint="@color/white"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintEnd_toStartOf="@+id/deleteExperienceButton"
+                app:layout_constraintRight_toLeftOf="@id/deleteExperienceButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/experienceImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/experienceContent"
-            tools:srcCompat="@tools:sample/avatars" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/deleteExperienceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:backgroundTint="#00000000"
+                android:tint="@color/white"
+                />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:minHeight="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/experienceContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Experience Content"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/experienceImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/experienceContent"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+
+
 </androidx.cardview.widget.CardView>
