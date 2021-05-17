@@ -61,6 +61,7 @@
                 android:id="@+id/habitName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:paddingVertical="5dp"
                 android:layout_marginStart="24dp"
                 android:fontFamily="sans-serif-black"
                 android:textSize="20sp"
