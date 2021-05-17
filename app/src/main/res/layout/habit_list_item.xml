@@ -22,7 +22,7 @@
             android:minHeight="60dp"
             android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:background="#191918"
+            android:background="@color/swipe_row_background_color"
             android:baselineAligned="true"
             android:orientation="horizontal"
             android:padding="10dp">
