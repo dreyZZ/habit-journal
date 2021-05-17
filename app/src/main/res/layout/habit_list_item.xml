@@ -18,7 +18,8 @@
         <LinearLayout
             android:id="@+id/rowBG"
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
+            android:minHeight="60dp"
             android:layout_gravity="end"
             android:layout_margin="10dp"
             android:background="#191918"
@@ -48,7 +49,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rowFG"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
+            android:minHeight="60dp"
             android:layout_margin="10dp"
             android:background="#CDCDCD"
             android:orientation="horizontal"
@@ -58,7 +60,7 @@
             <TextView
                 android:id="@+id/habitName"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="24dp"
                 android:fontFamily="sans-serif-black"
                 android:textSize="20sp"
