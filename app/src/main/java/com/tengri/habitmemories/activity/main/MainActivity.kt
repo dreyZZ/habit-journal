@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mHabitListRecyclerView: RecyclerView
     private lateinit var mHabitListAdapter: HabitListAdapter
+    private lateinit var mMenu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +47,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        mMenu = menu!!
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_edit_mode -> {
+                val oldVal = mHabitListAdapter.isEditModeEnabled
+                mHabitListAdapter.isEditModeEnabled = !oldVal
+                mHabitListAdapter.notifyDataSetChanged()
+                onEditModeButtonClicked(!oldVal)
+                true
+            }
             R.id.action_filter -> {
                 ColorSheet().colorPicker(
                     colors = rowColors,
@@ -96,9 +105,9 @@ class MainActivity : AppCompatActivity() {
                     this::onDeleteButtonClicked
                 )
                 mHabitListRecyclerView.adapter = mHabitListAdapter
-            }
 
-        addDragDrop()
+                addDragDrop()
+            }
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -136,10 +145,13 @@ class MainActivity : AppCompatActivity() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 }
 
+                override fun isLongPressDragEnabled(): Boolean {
+                    return false
+                }
             }
-
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
         itemTouchHelper.attachToRecyclerView(mHabitListRecyclerView)
+        mHabitListAdapter.mItemTouchHelper = itemTouchHelper
     }
 
     private fun onRowClicked(position: Int) {
@@ -200,6 +212,15 @@ class MainActivity : AppCompatActivity() {
 
         HabitState.deleteHabit(habit)
         adapter.notifyItemRemoved(pos)
+    }
+
+    private fun onEditModeButtonClicked(isEditModeEnabled: Boolean) {
+        val item: MenuItem = mMenu.findItem(R.id.action_edit_mode)
+        if (isEditModeEnabled) {
+            item.setIcon(R.drawable.ic_baseline_lock_open_white_24)
+        } else {
+            item.setIcon(R.drawable.ic_baseline_lock_white_24)
+        }
     }
 
 }

@@ -1,9 +1,11 @@
 package com.tengri.habitmemories.activity.main.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
@@ -22,6 +24,8 @@ class HabitListAdapter(
 
     private var filteredHabits: MutableList<Habit> = habitList
     private val viewBinderHelper = ViewBinderHelper()
+    var isEditModeEnabled = false
+    lateinit var mItemTouchHelper: ItemTouchHelper
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
         val view =
@@ -40,11 +44,22 @@ class HabitListAdapter(
         return filteredHabits.size
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         viewBinderHelper.bind(holder.swipeLayout, filteredHabits[position].id.toString())
         viewBinderHelper.setOpenOnlyOne(true)
 
         holder.bindItems(filteredHabits[position], this)
+
+        holder.dragButton.setOnTouchListener { _, _ ->
+            mItemTouchHelper.startDrag(holder)
+            false
+        }
+
+        when(isEditModeEnabled) {
+            true -> holder.dragButton.visibility = View.VISIBLE
+            false -> holder.dragButton.visibility = View.GONE
+        }
     }
 
     override fun getFilter(): Filter? {
@@ -91,6 +106,7 @@ class HabitListAdapter(
     ) : RecyclerView.ViewHolder(view) {
         private val habitTextView: TextView = view.findViewById(R.id.habitName)
         private val colorPickerButton: ImageButton = view.findViewById(R.id.colorPickerButton)
+        val dragButton: ImageButton = view.findViewById(R.id.dragButton)
         private val editHabitButton: ImageView = view.findViewById(R.id.editHabitButton)
         private val deleteHabitButton: ImageView = view.findViewById(R.id.deleteHabitButton)
         val swipeLayout: SwipeRevealLayout = view.findViewById(R.id.swipeLayout)
