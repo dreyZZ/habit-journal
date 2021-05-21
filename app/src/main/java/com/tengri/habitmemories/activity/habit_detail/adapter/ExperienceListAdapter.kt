@@ -10,12 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.chauthai.swipereveallayout.SwipeRevealLayout
+import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Experience
 import com.tengri.habitmemories.dialogs.ImageDialog
 import com.tengri.habitmemories.state.ExperienceState
+import com.tengri.habitmemories.util.convertByteArrayToBmp
 
 class ExperienceListAdapter(
     private val experienceList: MutableList<Experience>,
@@ -32,6 +36,8 @@ class ExperienceListAdapter(
     ) -> Unit
 ) : RecyclerView.Adapter<ExperienceListAdapter.ModelViewHolder>() {
 
+    private val viewBinderHelper = ViewBinderHelper()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.experience_list_item, parent, false)
@@ -45,6 +51,9 @@ class ExperienceListAdapter(
 
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.bindItems(experienceList[position], this)
+
+        viewBinderHelper.bind(holder.swipeLayout, experienceList[position].id.toString())
+        viewBinderHelper.setOpenOnlyOne(true)
     }
 
     class ModelViewHolder(
@@ -67,6 +76,7 @@ class ExperienceListAdapter(
         private val editButton: ImageButton = view.findViewById(R.id.editExperienceButton)
         private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
         private val imageView: ImageView = view.findViewById(R.id.experienceImageView)
+        val swipeLayout: SwipeRevealLayout = view.findViewById(R.id.swipeLayout)
 
         init {
             view.setOnClickListener {
@@ -89,11 +99,14 @@ class ExperienceListAdapter(
             }
 
             item.image?.let { imageBytes ->
-                Glide.with(this.itemView)
+                imageView.visibility = View.VISIBLE
+
+                Glide.with(imageView)
                     .load(imageBytes)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .override(300, 300)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .placeholder(ColorDrawable(Color.BLACK))
+//                    .transition(DrawableTransitionOptions.withCrossFade())
+//                    .placeholder(ColorDrawable(Color.BLACK))
                     .into(imageView)
 
                 imageView.setOnClickListener {
