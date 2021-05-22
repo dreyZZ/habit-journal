@@ -56,7 +56,9 @@
             app:clamp="self"
             app:gravity="right"
             app:sticky="100dp"
-            tools:ignore="MissingPrefix">
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            tools:ignore="MissingPrefix,RtlSymmetry">
 
             <ImageButton
                 android:id="@+id/editExperienceButton"
