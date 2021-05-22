@@ -36,8 +36,6 @@ class ExperienceListAdapter(
     ) -> Unit
 ) : RecyclerView.Adapter<ExperienceListAdapter.ModelViewHolder>() {
 
-    private val viewBinderHelper = ViewBinderHelper()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.experience_list_item, parent, false)
@@ -51,9 +49,6 @@ class ExperienceListAdapter(
 
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.bindItems(experienceList[position], this)
-
-        viewBinderHelper.bind(holder.swipeLayout, experienceList[position].id.toString())
-        viewBinderHelper.setOpenOnlyOne(true)
     }
 
     class ModelViewHolder(
@@ -76,7 +71,6 @@ class ExperienceListAdapter(
         private val editButton: ImageButton = view.findViewById(R.id.editExperienceButton)
         private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
         private val imageView: ImageView = view.findViewById(R.id.experienceImageView)
-        val swipeLayout: SwipeRevealLayout = view.findViewById(R.id.swipeLayout)
 
         init {
             view.setOnClickListener {

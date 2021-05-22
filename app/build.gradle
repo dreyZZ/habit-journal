@@ -80,5 +80,6 @@ dependencies {
 
     // Swipe
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+    implementation 'ru.rambler.android:swipe-layout:1.1.0'
 
 }

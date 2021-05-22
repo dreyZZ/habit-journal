@@ -1,86 +1,38 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="8dp"
     app:cardBackgroundColor="@color/card_background"
-    app:cardCornerRadius="16dp"
-    android:layout_margin="8dp">
+    app:cardCornerRadius="16dp">
 
-    <com.chauthai.swipereveallayout.SwipeRevealLayout
+    <ru.rambler.libs.swipe_layout.SwipeLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:mode="same_level"
-        app:dragEdge="right"
-        android:focusableInTouchMode="false">
+        android:layout_height="wrap_content"
+        android:minHeight="50dp"
+        app:left_swipe_enabled="false"
+        app:right_swipe_enabled="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minHeight="50dp"
-            android:background="@color/swipe_row_background_color"
-            >
-
-            <ImageButton
-                android:id="@+id/editExperienceButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00000000"
-                android:src="@drawable/ic_baseline_edit_24"
-                android:tint="@color/white"
-                android:layout_gravity="center_vertical"
-                app:layout_constraintEnd_toStartOf="@+id/addImageButton"
-                app:layout_constraintRight_toLeftOf="@id/deleteExperienceButton"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/addImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_image_24"
-                android:backgroundTint="#00000000"
-                android:tint="@color/white"
-                android:layout_gravity="center_vertical"
-                app:layout_constraintEnd_toStartOf="@+id/deleteExperienceButton"
-                app:layout_constraintRight_toLeftOf="@id/deleteExperienceButton"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/deleteExperienceButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_baseline_delete_24"
-                android:backgroundTint="#00000000"
-                android:tint="@color/white"
-                />
-
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:minHeight="50dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/experienceContent"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-black"
                 android:text="Experience Content"
-                android:textSize="18sp"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/experienceImageView"
+                android:textSize="18sp"
                 />
 
             <ImageView
@@ -91,14 +43,53 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/experienceContent"
                 tools:srcCompat="@tools:sample/avatars" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </LinearLayout>
 
-    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/swipe_row_background_color"
+            android:minHeight="50dp"
+            app:bring_to_clamp="150dp"
+            app:clamp="self"
+            app:gravity="right"
+            app:sticky="100dp"
+            tools:ignore="MissingPrefix">
 
+            <ImageButton
+                android:id="@+id/editExperienceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#00000000"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:tint="@color/white"
+                />
+
+            <ImageButton
+                android:id="@+id/addImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#00000000"
+                android:src="@drawable/ic_baseline_image_24"
+                android:tint="@color/white"
+                />
+
+            <ImageButton
+                android:id="@+id/deleteExperienceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#00000000"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:tint="@color/white"
+                />
+
+        </LinearLayout>
+
+    </ru.rambler.libs.swipe_layout.SwipeLayout>
 
 </androidx.cardview.widget.CardView>
