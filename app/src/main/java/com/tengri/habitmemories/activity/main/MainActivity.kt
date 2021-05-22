@@ -19,6 +19,7 @@ import com.tengri.habitmemories.activity.settings.SettingsActivity
 import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.dialogs.HabitDialog
+import com.tengri.habitmemories.state.AppSettings
 import com.tengri.habitmemories.state.HabitState
 import com.tengri.habitmemories.state.HabitState.habits
 import com.tengri.habitmemories.util.rowColors
@@ -65,13 +66,15 @@ class MainActivity : AppCompatActivity() {
                     colors = rowColors,
                     noColorOption = true,
                     listener = { color ->
-                        mHabitListAdapter.filter!!.filter(color.toString())
+                        AppSettings.habitListFilter = color.toString()
+                        applyFilter()
                     })
                     .show(supportFragmentManager)
                 true
             }
             R.id.action_clear_filters -> {
-                mHabitListAdapter.filter!!.filter("clear")
+                AppSettings.habitListFilter = "clear"
+                applyFilter()
                 true
             }
             R.id.action_settings -> {
@@ -107,6 +110,8 @@ class MainActivity : AppCompatActivity() {
                 mHabitListRecyclerView.adapter = mHabitListAdapter
 
                 addDragDrop()
+
+                applyFilter()
             }
 
         // fab
@@ -119,6 +124,10 @@ class MainActivity : AppCompatActivity() {
 
             dialog.show()
         }
+    }
+
+    private fun applyFilter() {
+        mHabitListAdapter.filter!!.filter(AppSettings.habitListFilter)
     }
 
     private fun addDragDrop() {
