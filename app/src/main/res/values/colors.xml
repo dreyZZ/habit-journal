@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_background_color">#0E0E0E</color>
-    <color name="swipe_row_background_color">#191918</color>
+    <color name="main_background">#0E0E0E</color>
+    <color name="swipe_row_background">#191918</color>
     <color name="card_background">#CDCDCD</color>
 </resources>

@@ -2,8 +2,6 @@ package com.tengri.habitmemories.util
 
 import android.graphics.Color
 
-var defaultRowColor = Color.parseColor("#CDCDCD")
-
 var rowColors = intArrayOf(
     Color.parseColor("#EEC8BE"),
     Color.parseColor("#EEDDBE"),

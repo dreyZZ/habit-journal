@@ -50,7 +50,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/swipe_row_background_color"
+            android:background="@color/swipe_row_background"
             android:minHeight="50dp"
             app:bring_to_clamp="150dp"
             app:clamp="self"

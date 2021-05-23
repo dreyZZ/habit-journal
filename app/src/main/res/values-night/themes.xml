@@ -3,7 +3,7 @@
     <style name="Theme.HabitExperience" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/main_background_color</item>
+        <item name="colorPrimaryVariant">@color/main_background</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Text Colors -->
@@ -11,7 +11,7 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColorTertiary">@color/white</item>
-        <item name="android:colorControlNormal">@color/main_background_color</item>
+        <item name="android:colorControlNormal">@color/main_background</item>
         <item name="android:actionMenuTextColor">@color/white</item>
 
         <!-- Secondary brand color. -->

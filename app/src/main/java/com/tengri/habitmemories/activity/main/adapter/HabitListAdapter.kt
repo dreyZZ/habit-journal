@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
+import com.tengri.habitmemories.App
 import com.tengri.habitmemories.R
+import com.tengri.habitmemories.R.color.card_background
 import com.tengri.habitmemories.database.entities.Habit
-import com.tengri.habitmemories.util.defaultRowColor
 
 
 class HabitListAdapter(
@@ -139,7 +141,7 @@ class HabitListAdapter(
             if (item.color != null) {
                 foreground.setBackgroundColor(item.color!!)
             } else {
-                foreground.setBackgroundColor(defaultRowColor)
+                foreground.setBackgroundColor(ContextCompat.getColor(App.instance, card_background))
             }
         }
     }
