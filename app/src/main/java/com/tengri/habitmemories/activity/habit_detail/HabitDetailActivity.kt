@@ -46,7 +46,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
         // toolbar
         val toolbar = supportActionBar
-        toolbar!!.title = "${habit.name} Experiences"
+        toolbar!!.title = "${habit.name}"
 
         // recyclerview
         experienceListView = findViewById(R.id.experienceList)
