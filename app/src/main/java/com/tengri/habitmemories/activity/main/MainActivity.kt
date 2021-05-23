@@ -1,6 +1,7 @@
 package com.tengri.habitmemories.activity.main
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -68,8 +69,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeDb() {
         val ids = DBInterface.db.habitDao().insertAll(
-            Habit(id = 0, "Reading Books"),
-            Habit(id = 0, "Social Media")
+            Habit(id = 0, "Reading Books", color = Color.GREEN),
+            Habit(id = 0, "Social Media", color = Color.RED)
         )
 
         DBInterface.db.experienceDao().insertAll(

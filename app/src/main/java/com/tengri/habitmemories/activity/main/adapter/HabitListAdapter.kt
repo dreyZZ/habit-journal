@@ -113,6 +113,7 @@ class HabitListAdapter(
         private val deleteHabitButton: ImageView = view.findViewById(R.id.deleteHabitButton)
         val swipeLayout: SwipeRevealLayout = view.findViewById(R.id.swipeLayout)
         private val foreground: View = view.findViewById(R.id.rowFG)
+        private val rowColorArea: View = view.findViewById(R.id.rowColorArea)
 
 
         init {
@@ -139,9 +140,11 @@ class HabitListAdapter(
             habitTextView.text = item.name
 
             if (item.color != null) {
-                foreground.setBackgroundColor(item.color!!)
+//                rowColorArea.setBackgroundColor(item.color!!)
+                rowColorArea.background.setTint(item.color!!)
             } else {
-                foreground.setBackgroundColor(ContextCompat.getColor(App.instance, card_background))
+//                rowColorArea.setBackgroundColor(ContextCompat.getColor(App.instance, card_background))
+                rowColorArea.background.setTint(ContextCompat.getColor(App.instance, card_background))
             }
         }
     }

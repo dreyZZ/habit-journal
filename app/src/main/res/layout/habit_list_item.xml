@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusableInTouchMode="false"
     android:layout_margin="8dp"
+    android:focusableInTouchMode="false"
     app:cardCornerRadius="16dp">
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout
@@ -19,11 +19,11 @@
             android:id="@+id/rowBG"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:minHeight="60dp"
             android:layout_gravity="end"
             android:layout_margin="10dp"
             android:background="@color/swipe_row_background"
             android:baselineAligned="true"
+            android:minHeight="60dp"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -50,9 +50,9 @@
             android:id="@+id/rowFG"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="60dp"
             android:layout_margin="10dp"
             android:background="@color/card_background"
+            android:minHeight="60dp"
             android:orientation="horizontal"
             android:visibility="visible"
             android:weightSum="1">
@@ -61,13 +61,13 @@
                 android:id="@+id/habitName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:paddingVertical="5dp"
                 android:layout_marginStart="24dp"
-                android:fontFamily="sans-serif-black"
-                android:textSize="20sp"
                 android:layout_marginBottom="2dp"
+                android:fontFamily="sans-serif-black"
                 android:gravity="center_vertical"
+                android:paddingVertical="5dp"
                 android:textColor="@color/main_background"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/colorPickerButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,11 +94,23 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#00FFFFFF"
-                android:tint="@color/black"
                 android:src="@drawable/ic_baseline_drag_indicator_24"
+                android:tint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/colorPickerButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:background="@color/card_background"
+                android:backgroundTint="@color/card_background"
+                android:id="@+id/rowColorArea"
+                app:cardCornerRadius="4dp"
+                android:layout_width="10dp"
+                android:layout_height="45dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/habitName"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

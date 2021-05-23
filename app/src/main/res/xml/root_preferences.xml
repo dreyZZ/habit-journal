@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="Experience Images">
+    <PreferenceCategory app:title="Experiences">
 
 <!--        <EditTextPreference-->
 <!--            app:key="signature"-->
@@ -13,7 +13,7 @@
             app:entries="@array/compress_entries"
             app:entryValues="@array/compress_values"
             app:key="compress_level"
-            app:title="Compress Level"
+            app:title="Image Compression Level"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
