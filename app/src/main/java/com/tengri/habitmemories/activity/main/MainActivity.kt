@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.tengri.habitmemories.App
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitmemories.activity.main.adapter.HabitListAdapter
 import com.tengri.habitmemories.activity.settings.SettingsActivity
 import com.tengri.habitmemories.database.DBInterface
+import com.tengri.habitmemories.database.entities.Experience
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.dialogs.HabitDialog
 import com.tengri.habitmemories.state.AppSettings
 import com.tengri.habitmemories.state.HabitState
 import com.tengri.habitmemories.state.HabitState.habits
+import com.tengri.habitmemories.util.convertDrawableToByteArray
 import com.tengri.habitmemories.util.rowColors
 import dev.sasikanth.colorsheet.ColorSheet
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -43,7 +46,58 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
+        checkFirstStart()
+
         initializeViews()
+    }
+
+    private fun checkFirstStart(): Boolean {
+        val firstStart = App.sharedPreferences.getBoolean("firstStart", true)
+
+        if (firstStart) {
+            initializeDb()
+
+            val editor = App.sharedPreferences.edit()
+            editor.putBoolean("firstStart", false)
+
+            editor.apply()
+        }
+
+        return firstStart
+    }
+
+    private fun initializeDb() {
+        val ids = DBInterface.db.habitDao().insertAll(
+            Habit(id = 0, "Reading Books"),
+            Habit(id = 0, "Social Media")
+        )
+
+        DBInterface.db.experienceDao().insertAll(
+            Experience(
+                id = 0,
+                ids[0],
+                "They make me wiser and happier",
+                convertDrawableToByteArray(resources, R.drawable.book_ex1),
+                Date().time
+            ),
+            Experience(
+                id = 0,
+                ids[0],
+                "“We all get socialized once by our parents and teachers, ministers and priests. " +
+                        "[Reading great books] is about getting a second chance. It’s not about being born " +
+                        "again, but about growing up a second time, this time around as your own educator " +
+                        "and guide, Virgil to yourself.”",
+                convertDrawableToByteArray(resources, R.drawable.book_ex2),
+                Date().time
+            ),
+            Experience(
+                id = 0,
+                ids[1],
+                "Social media seriously harms your mental health",
+                convertDrawableToByteArray(resources, R.drawable.book_ex3),
+                Date().time
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -118,7 +172,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val dialog = HabitDialog(this)
             dialog.setOnSubmit {
-                HabitState.addHabit(Habit(0, it))
+                HabitState.add(Habit(0, it))
                 mHabitListAdapter.notifyItemInserted(HabitState.lastIndex())
             }
 
@@ -219,7 +273,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = mHabitListAdapter
         val habit = habits[pos]
 
-        HabitState.deleteHabit(habit)
+        HabitState.delete(habit)
         adapter.notifyItemRemoved(pos)
     }
 
@@ -231,5 +285,7 @@ class MainActivity : AppCompatActivity() {
             item.setIcon(R.drawable.ic_baseline_lock_white_24)
         }
     }
+
+
 
 }

@@ -17,7 +17,7 @@ object HabitState {
         return habits
     }
 
-    fun addHabit(habit: Habit) {
+    fun add(habit: Habit): Habit {
         // TODO: 24/04/2021 block ediyor olabilir
         val ids = habitDao.insertAll(habit)
 
@@ -27,9 +27,11 @@ object HabitState {
         habitDao.update(habit)
 
         habits.add(habit)
+
+        return habit
     }
 
-    fun deleteHabit(habit: Habit) {
+    fun delete(habit: Habit) {
         habitDao.delete(habit)
 
         habits.remove(habit)
