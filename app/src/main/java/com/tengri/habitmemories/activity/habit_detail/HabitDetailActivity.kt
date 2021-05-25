@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -26,6 +27,7 @@ import java.util.*
 
 class HabitDetailActivity : AppCompatActivity() {
 
+    private lateinit var experienceListAdapter: ExperienceListAdapter
     private lateinit var experienceListView: RecyclerView
     private var habitId: Long = -1
     private lateinit var habit: Habit
@@ -61,7 +63,7 @@ class HabitDetailActivity : AppCompatActivity() {
                     LinearLayoutManager.VERTICAL,
                     false
                 )
-                experienceListView.adapter = ExperienceListAdapter(experiences, onItemClicked = {
+                experienceListAdapter = ExperienceListAdapter(experiences, onItemClicked = {
                     val item = experiences[it]
                     Log.d("Experiences: ", item.content!!)
                 }, onEditButtonClicked = { experience, pos, adapter ->
@@ -99,16 +101,24 @@ class HabitDetailActivity : AppCompatActivity() {
 
                                 }
                                 ImagePicker.RESULT_ERROR -> {
-                                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this,
+                                        ImagePicker.getError(data),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                                 else -> {
-                                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             }
                         }
 
                 })
+                experienceListView.adapter = experienceListAdapter
             }
+
+        addDragDrop()
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -120,5 +130,36 @@ class HabitDetailActivity : AppCompatActivity() {
 
             dialog.show()
         }
+    }
+
+    private fun addDragDrop() {
+        val simpleCallback =
+            object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    val from = viewHolder.adapterPosition
+                    val to = target.adapterPosition
+
+                    val itemList = experienceListAdapter.experienceList
+
+                    ExperienceState.swapIds(itemList[from], itemList[to])
+
+                    Collections.swap(itemList, from, to)
+
+                    recyclerView.adapter!!.notifyItemMoved(from, to)
+
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                }
+
+            }
+
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(experienceListView)
     }
 }

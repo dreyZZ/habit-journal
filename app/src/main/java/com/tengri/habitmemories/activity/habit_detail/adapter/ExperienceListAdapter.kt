@@ -1,7 +1,5 @@
 package com.tengri.habitmemories.activity.habit_detail.adapter
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,19 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.chauthai.swipereveallayout.SwipeRevealLayout
-import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Experience
 import com.tengri.habitmemories.dialogs.ImageDialog
 import com.tengri.habitmemories.state.ExperienceState
-import com.tengri.habitmemories.util.convertByteArrayToBmp
 
 class ExperienceListAdapter(
-    private val experienceList: MutableList<Experience>,
+    val experienceList: MutableList<Experience>,
     private val onItemClicked: (pos: Int) -> Unit,
     private val onEditButtonClicked: (
         item: Experience,

@@ -34,4 +34,13 @@ object ExperienceState {
         experiences = experienceDao.getByHabitId(habitId) as MutableList<Experience>
         return experiences
     }
+
+    fun swapIds(ex1: Experience, ex2: Experience) {
+        val id1 = ex1.id
+
+        ex1.id = ex2.id
+        ex2.id = id1
+
+        experienceDao.update(ex1, ex2)
+    }
 }
