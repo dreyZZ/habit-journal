@@ -24,7 +24,6 @@ import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.dialogs.HabitDialog
 import com.tengri.habitmemories.state.AppSettings
 import com.tengri.habitmemories.state.HabitState
-import com.tengri.habitmemories.state.HabitState.habits
 import com.tengri.habitmemories.util.convertDrawableToByteArray
 import com.tengri.habitmemories.util.rowColors
 import dev.sasikanth.colorsheet.ColorSheet
@@ -69,8 +68,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeDb() {
         val ids = DBInterface.db.habitDao().insertAll(
-            Habit(id = 0, "Reading Books", color = Color.GREEN),
-            Habit(id = 0, "Social Media", color = Color.RED)
+            Habit(id = 0, "Reading Books", color = Color.GREEN, position = 0),
+            Habit(id = 0, "Social Media", color = Color.RED, position = 1)
         )
 
         DBInterface.db.experienceDao().insertAll(
@@ -173,7 +172,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val dialog = HabitDialog(this)
             dialog.setOnSubmit {
-                HabitState.add(Habit(0, it))
+                HabitState.add(Habit(0, it, position = mHabitListAdapter.habitList.size.toLong()))
                 mHabitListAdapter.notifyItemInserted(HabitState.lastIndex())
             }
 
@@ -197,9 +196,17 @@ class MainActivity : AppCompatActivity() {
                     val from = viewHolder.adapterPosition
                     val to = target.adapterPosition
 
-                    HabitState.swapIds(from, to)
+                    // filtreli listede swap et
+                    Collections.swap(mHabitListAdapter.filteredHabits, from, to)
 
-                    Collections.swap(habits, from, to)
+                    // asil listede swap et
+                    val realFrom = mHabitListAdapter.habitList.indexOf(mHabitListAdapter.filteredHabits[from])
+                    val realTo = mHabitListAdapter.habitList.indexOf(mHabitListAdapter.filteredHabits[to])
+
+                    Collections.swap(mHabitListAdapter.habitList, realFrom, realTo)
+
+                    // DB Pozisyonlari Swap Et
+                    HabitState.swapIds(realFrom, realTo)
 
                     recyclerView.adapter!!.notifyItemMoved(from, to)
 
@@ -219,7 +226,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onRowClicked(position: Int) {
-        val rowHabit = habits[position]
+        val rowHabit = mHabitListAdapter.filteredHabits[position]
 
         val intent = Intent(applicationContext, HabitDetailActivity::class.java)
         intent.putExtra("habitId", rowHabit.id)
@@ -229,7 +236,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onColorPickerClicked(pos: Int, foreground: View) {
         val adapter = mHabitListAdapter
-        val habit = habits[pos]
+        val habit = mHabitListAdapter.filteredHabits[pos]
 
         ColorSheet().colorPicker(
             colors = rowColors,
@@ -252,7 +259,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onEditButtonClicked(pos: Int) {
         val adapter = mHabitListAdapter
-        val habit = habits[pos]
+        val habit = mHabitListAdapter.filteredHabits[pos]
 
         val dialog = HabitDialog(this, habit.name!!)
 
@@ -272,7 +279,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onDeleteButtonClicked(pos: Int) {
         val adapter = mHabitListAdapter
-        val habit = habits[pos]
+        val habit = mHabitListAdapter.filteredHabits[pos]
 
         HabitState.delete(habit)
         adapter.notifyItemRemoved(pos)

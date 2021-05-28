@@ -17,14 +17,14 @@ import com.tengri.habitmemories.database.entities.Habit
 
 
 class HabitListAdapter(
-    private val habitList: MutableList<Habit>,
+    val habitList: MutableList<Habit>,
     private val onRowClicked: (Int) -> Unit,
     private val onColorPickerSelected: (Int, View) -> Unit,
     private val onEditClicked: (Int) -> Unit,
     private val onDeleteClicked: (Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ModelViewHolder>(), Filterable {
 
-    private var filteredHabits: MutableList<Habit> = habitList
+    var filteredHabits: MutableList<Habit> = habitList
     private val viewBinderHelper = ViewBinderHelper()
     var isEditModeEnabled = false
     lateinit var mItemTouchHelper: ItemTouchHelper
