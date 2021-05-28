@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars"
         android:adjustViewBounds="true"
+        android:layout_marginTop="0dp"
+        android:paddingTop="0dp"
+        android:scaleType="fitXY"
         />
 
     <ImageButton
