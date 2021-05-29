@@ -1,11 +1,13 @@
 package com.tengri.habitmemories.activity.habit_detail.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tengri.habitmemories.R
@@ -29,9 +31,14 @@ class ExperienceListAdapter(
     ) -> Unit
 ) : RecyclerView.Adapter<ExperienceListAdapter.ModelViewHolder>() {
 
+    var editModeChange: Boolean = false
+    var isEditModeEnabled = false
+    lateinit var mItemTouchHelper: ItemTouchHelper
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.experience_list_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.experience_list_item, parent, false)
 
         return ModelViewHolder(view, onItemClicked, onEditButtonClicked, onImageButtonClicked)
     }
@@ -40,8 +47,21 @@ class ExperienceListAdapter(
         return experienceList.size
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.bindItems(experienceList[position], this)
+        if (!editModeChange) {
+            holder.bindItems(experienceList[position], this)
+        }
+
+        holder.dragButton.setOnTouchListener { _, _ ->
+            mItemTouchHelper.startDrag(holder)
+            false
+        }
+
+        when (isEditModeEnabled) {
+            true -> holder.dragButton.visibility = View.VISIBLE
+            false -> holder.dragButton.visibility = View.GONE
+        }
     }
 
     class ModelViewHolder(
@@ -64,6 +84,7 @@ class ExperienceListAdapter(
         private val editButton: ImageButton = view.findViewById(R.id.editExperienceButton)
         private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
         private val imageView: ImageView = view.findViewById(R.id.experienceImageView)
+        val dragButton: ImageButton = view.findViewById(R.id.dragButton)
 
         init {
             view.setOnClickListener {

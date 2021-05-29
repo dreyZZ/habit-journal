@@ -1,8 +1,11 @@
 package com.tengri.habitmemories.activity.habit_detail
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -14,11 +17,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitmemories.App.Companion.sharedPreferences
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.activity.habit_detail.adapter.ExperienceListAdapter
+import com.tengri.habitmemories.activity.settings.SettingsActivity
 import com.tengri.habitmemories.database.DBInterface
 import com.tengri.habitmemories.database.entities.Habit
 import com.tengri.habitmemories.database.entities.Experience
 import com.tengri.habitmemories.dialogs.ExperienceDialog
+import com.tengri.habitmemories.state.AppSettings
 import com.tengri.habitmemories.state.ExperienceState
+import com.tengri.habitmemories.util.rowColors
+import dev.sasikanth.colorsheet.ColorSheet
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -27,6 +34,7 @@ import java.util.*
 
 class HabitDetailActivity : AppCompatActivity() {
 
+    private lateinit var mMenu: Menu
     private lateinit var experienceListAdapter: ExperienceListAdapter
     private lateinit var experienceListView: RecyclerView
     private var habitId: Long = -1
@@ -43,6 +51,36 @@ class HabitDetailActivity : AppCompatActivity() {
 
         initializeViews(habitId)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_habit_detail, menu)
+        mMenu = menu!!
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_edit_mode -> {
+                val oldVal = experienceListAdapter.isEditModeEnabled
+                experienceListAdapter.isEditModeEnabled = !oldVal
+
+                experienceListAdapter.editModeChange = true
+                experienceListAdapter.notifyDataSetChanged()
+                onEditModeButtonClicked(!oldVal)
+                true
+            }
+            R.id.action_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun onEditModeButtonClicked(any: Any) {
+        TODO("Not yet implemented")
+    }
+
 
     private fun initializeViews(habitId: Long) {
 
@@ -116,9 +154,9 @@ class HabitDetailActivity : AppCompatActivity() {
 
                 })
                 experienceListView.adapter = experienceListAdapter
-            }
 
-        addDragDrop()
+                addDragDrop()
+            }
 
         // fab
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
@@ -126,7 +164,16 @@ class HabitDetailActivity : AppCompatActivity() {
             dialog.setOnSubmit {
                 val nextItemPosition = experienceListAdapter.experienceList.size.toLong()
 
-                ExperienceState.add(Experience(0, habitId, it, null, Date().time,  position = nextItemPosition))
+                ExperienceState.add(
+                    Experience(
+                        0,
+                        habitId,
+                        it,
+                        null,
+                        Date().time,
+                        position = nextItemPosition
+                    )
+                )
 
                 experienceListView.adapter!!.notifyItemInserted(ExperienceState.lastIndex())
             }
@@ -160,9 +207,23 @@ class HabitDetailActivity : AppCompatActivity() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 }
 
+                override fun isLongPressDragEnabled(): Boolean {
+                    return false
+                }
+
             }
 
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
         itemTouchHelper.attachToRecyclerView(experienceListView)
+        experienceListAdapter.mItemTouchHelper = itemTouchHelper
+    }
+
+    private fun onEditModeButtonClicked(isEditModeEnabled: Boolean) {
+        val item: MenuItem = mMenu.findItem(R.id.action_edit_mode)
+        if (isEditModeEnabled) {
+            item.setIcon(R.drawable.ic_baseline_lock_open_white_24)
+        } else {
+            item.setIcon(R.drawable.ic_baseline_lock_white_24)
+        }
     }
 }
