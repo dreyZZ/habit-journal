@@ -6,11 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".activity.habit_detail.HabitDetailActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.HabitExperience.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.HabitExperience.PopupOverlay"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/experienceList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="75dp"
-        android:id="@+id/experienceList">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -19,10 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
         android:backgroundTint="#595959"
         android:tint="@color/white"
         app:borderWidth="0dp"
-        android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

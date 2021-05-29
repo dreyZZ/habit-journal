@@ -13,15 +13,16 @@
         android:theme="@style/Theme.HabitExperience">
         <activity
             android:name="com.tengri.habitmemories.activity.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-        <activity android:name="com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity" />
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name="com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity"
+            android:theme="@style/Theme.HabitExperience" />
         <activity
             android:name="com.tengri.habitmemories.activity.main.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.HabitExperience.NoActionBar">
+            android:theme="@style/Theme.HabitExperience">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
