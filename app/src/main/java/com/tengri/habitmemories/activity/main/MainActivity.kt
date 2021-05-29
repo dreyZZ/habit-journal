@@ -125,11 +125,13 @@ class MainActivity : AppCompatActivity() {
                     listener = { color ->
                         AppSettings.habitListFilter = color.toString()
                         applyFilter()
+                        onFilterChange()
                     })
                     .show(supportFragmentManager)
                 true
             }
-            R.id.action_clear_filters -> {
+            R.id.clear_filters -> {
+                onFilterChange(clear = true)
                 AppSettings.habitListFilter = "clear"
                 applyFilter()
                 true
@@ -140,6 +142,11 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun onFilterChange(clear: Boolean = false) {
+        val view = mMenu.findItem(R.id.clear_filters)
+        view.isVisible = !clear
     }
 
     private fun initializeViews() {

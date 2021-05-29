@@ -4,25 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.main.MainActivity">
     <item
+        android:id="@+id/clear_filters"
+        android:icon="@drawable/ic_baseline_filter_list_white_24"
+        android:title="Clear Filters"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_edit_mode"
         android:icon="@drawable/ic_baseline_lock_white_24"
-        app:showAsAction="ifRoom"
-        android:title="Edit Mode">
-    </item>
+        android:title="Edit Mode"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_baseline_filter_list_white_24"
-        app:showAsAction="never"
-        android:title="Filter By Color">
-    </item>
-    <item
-        android:id="@+id/action_clear_filters"
-        app:showAsAction="never"
-        android:title="Clear Filters">
-    </item>
+        android:title="Filter By Color"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
-        app:showAsAction="never"
-        android:title="Settings">
-    </item>
+        android:title="Settings"
+        app:showAsAction="never" />
 </menu>
