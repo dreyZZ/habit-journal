@@ -22,7 +22,8 @@ data class Experience(
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     var image: ByteArray?,
 
-    var insertDate: Long?
+    var insertDate: Long?,
+    var position: Long
 ) {
 
     override fun equals(other: Any?): Boolean {

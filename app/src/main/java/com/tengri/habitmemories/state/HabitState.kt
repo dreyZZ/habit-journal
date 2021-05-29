@@ -41,7 +41,7 @@ object HabitState {
         return habits.size - 1
     }
 
-    fun swapIds(from: Int, to: Int) {
+    fun swapPositions(from: Int, to: Int) {
         val habit1 = habits[from]
         val habit2 = habits[to]
 

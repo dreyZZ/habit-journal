@@ -124,7 +124,10 @@ class HabitDetailActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val dialog = ExperienceDialog(this)
             dialog.setOnSubmit {
-                ExperienceState.add(Experience(0, habitId, it, null, Date().time))
+                val nextItemPosition = experienceListAdapter.experienceList.size.toLong()
+
+                ExperienceState.add(Experience(0, habitId, it, null, Date().time,  position = nextItemPosition))
+
                 experienceListView.adapter!!.notifyItemInserted(ExperienceState.lastIndex())
             }
 
@@ -145,7 +148,7 @@ class HabitDetailActivity : AppCompatActivity() {
 
                     val itemList = experienceListAdapter.experienceList
 
-                    ExperienceState.swapIds(itemList[from], itemList[to])
+                    ExperienceState.swapPositions(itemList[from], itemList[to])
 
                     Collections.swap(itemList, from, to)
 

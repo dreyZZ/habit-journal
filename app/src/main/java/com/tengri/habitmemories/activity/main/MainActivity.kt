@@ -78,7 +78,8 @@ class MainActivity : AppCompatActivity() {
                 ids[0],
                 "They make me wiser and happier",
                 convertDrawableToByteArray(resources, R.drawable.book_ex1),
-                Date().time
+                Date().time,
+                0
             ),
             Experience(
                 id = 0,
@@ -88,14 +89,16 @@ class MainActivity : AppCompatActivity() {
                         "again, but about growing up a second time, this time around as your own educator " +
                         "and guide, Virgil to yourself.”",
                 convertDrawableToByteArray(resources, R.drawable.book_ex2),
-                Date().time
+                Date().time,
+                1
             ),
             Experience(
                 id = 0,
                 ids[1],
                 "Social media seriously harms your mental health",
                 convertDrawableToByteArray(resources, R.drawable.book_ex3),
-                Date().time
+                Date().time,
+                2
             )
         )
     }
@@ -206,7 +209,7 @@ class MainActivity : AppCompatActivity() {
                     Collections.swap(mHabitListAdapter.habitList, realFrom, realTo)
 
                     // DB Pozisyonlari Swap Et
-                    HabitState.swapIds(realFrom, realTo)
+                    HabitState.swapPositions(realFrom, realTo)
 
                     recyclerView.adapter!!.notifyItemMoved(from, to)
 

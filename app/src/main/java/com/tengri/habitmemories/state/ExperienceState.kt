@@ -32,14 +32,15 @@ object ExperienceState {
 
     fun get(habitId: Long): MutableList<Experience> {
         experiences = experienceDao.getByHabitId(habitId) as MutableList<Experience>
+        experiences.sortBy { it.position }
         return experiences
     }
 
-    fun swapIds(ex1: Experience, ex2: Experience) {
-        val id1 = ex1.id
+    fun swapPositions(ex1: Experience, ex2: Experience) {
+        val pos1 = ex1.position
 
-        ex1.id = ex2.id
-        ex2.id = id1
+        ex1.position = ex2.position
+        ex2.position = pos1
 
         experienceDao.update(ex1, ex2)
     }
