@@ -26,8 +26,6 @@ object HabitState {
 
         habitDao.update(habit)
 
-        habits.add(habit)
-
         return habit
     }
 

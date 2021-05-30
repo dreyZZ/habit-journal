@@ -186,7 +186,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             val dialog = HabitDialog(this)
             dialog.setOnSubmit {
-                HabitState.add(Habit(0, it, position = mHabitListAdapter.habitList.size.toLong()))
+                val newHabit = Habit(0, it, position = mHabitListAdapter.habitList.size.toLong())
+                HabitState.add(newHabit)
+                mHabitListAdapter.addHabit(newHabit)
                 mHabitListAdapter.notifyItemInserted(HabitState.lastIndex())
             }
 

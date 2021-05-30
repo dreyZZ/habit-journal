@@ -14,6 +14,7 @@ import com.tengri.habitmemories.App
 import com.tengri.habitmemories.R
 import com.tengri.habitmemories.R.color.card_background
 import com.tengri.habitmemories.database.entities.Habit
+import com.tengri.habitmemories.state.AppSettings
 
 
 class HabitListAdapter(
@@ -98,6 +99,11 @@ class HabitListAdapter(
                 notifyDataSetChanged()
             }
         }
+    }
+
+    fun addHabit(newHabit: Habit) {
+        habitList.add(newHabit)
+        filter!!.filter(AppSettings.habitListFilter)
     }
 
     class ModelViewHolder(
