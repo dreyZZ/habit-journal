@@ -67,6 +67,8 @@ class HabitDetailActivity : AppCompatActivity() {
 
                 experienceListAdapter.editModeChange = true
                 experienceListAdapter.notifyDataSetChanged()
+                experienceListAdapter.editModeChange = false
+
                 onEditModeButtonClicked(!oldVal)
                 true
             }

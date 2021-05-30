@@ -24,7 +24,8 @@ class HabitListAdapter(
     private val onDeleteClicked: (Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ModelViewHolder>(), Filterable {
 
-    var filteredHabits: MutableList<Habit> = habitList
+    var editModeChange: Boolean = false
+    var filteredHabits: MutableList<Habit> = ArrayList(habitList)
     private val viewBinderHelper = ViewBinderHelper()
     var isEditModeEnabled = false
     lateinit var mItemTouchHelper: ItemTouchHelper
@@ -67,7 +68,7 @@ class HabitListAdapter(
     override fun getFilter(): Filter? {
         return object : Filter() {
             override fun performFiltering(charSequence: CharSequence): FilterResults? {
-                filteredHabits = habitList
+                filteredHabits = ArrayList(habitList)
                 when (charSequence) {
                     "clear" -> {
                     }

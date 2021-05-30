@@ -114,7 +114,11 @@ class MainActivity : AppCompatActivity() {
             R.id.action_edit_mode -> {
                 val oldVal = mHabitListAdapter.isEditModeEnabled
                 mHabitListAdapter.isEditModeEnabled = !oldVal
+
+                mHabitListAdapter.editModeChange = true
                 mHabitListAdapter.notifyDataSetChanged()
+                mHabitListAdapter.editModeChange = false
+
                 onEditModeButtonClicked(!oldVal)
                 true
             }
@@ -216,7 +220,7 @@ class MainActivity : AppCompatActivity() {
                     Collections.swap(mHabitListAdapter.habitList, realFrom, realTo)
 
                     // DB Pozisyonlari Swap Et
-                    HabitState.swapPositions(realFrom, realTo)
+                    HabitState.swapPositions(mHabitListAdapter.habitList[realFrom], mHabitListAdapter.habitList[realTo])
 
                     recyclerView.adapter!!.notifyItemMoved(from, to)
 
