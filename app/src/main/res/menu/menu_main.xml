@@ -5,7 +5,7 @@
     tools:context=".activity.main.MainActivity">
     <item
         android:id="@+id/clear_filters"
-        android:icon="@drawable/ic_baseline_filter_list_white_24"
+        android:icon="@drawable/ic_clear_filters"
         android:title="Clear Filters"
         android:visible="false"
         app:showAsAction="always" />
