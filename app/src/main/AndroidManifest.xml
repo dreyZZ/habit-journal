@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tengri.habitmemories">
+    package="com.tengri.habitexperiences">
 
     <application
-        android:name="com.tengri.habitmemories.App"
+        android:name="com.tengri.habitexperiences.App"
         android:allowBackup="true"
         android:forceDarkAllowed="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitExperience">
         <activity
-            android:name="com.tengri.habitmemories.activity.settings.SettingsActivity"
+            android:name="com.tengri.habitexperiences.activity.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name="com.tengri.habitmemories.activity.habit_detail.HabitDetailActivity"
+            android:name="com.tengri.habitexperiences.activity.habit_detail.HabitDetailActivity"
             android:theme="@style/Theme.HabitExperience" />
         <activity
-            android:name="com.tengri.habitmemories.activity.main.MainActivity"
+            android:name="com.tengri.habitexperiences.activity.main.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.HabitExperience">
             <intent-filter>
