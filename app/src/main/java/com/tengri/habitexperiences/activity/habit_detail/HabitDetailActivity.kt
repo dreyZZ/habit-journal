@@ -21,6 +21,7 @@ import com.tengri.habitexperiences.activity.settings.SettingsActivity
 import com.tengri.habitexperiences.database.DBInterface
 import com.tengri.habitexperiences.database.entities.Habit
 import com.tengri.habitexperiences.database.entities.Experience
+import com.tengri.habitexperiences.dialogs.AboutDialog
 import com.tengri.habitexperiences.dialogs.ExperienceDialog
 import com.tengri.habitexperiences.state.ExperienceState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -71,6 +72,10 @@ class HabitDetailActivity : AppCompatActivity() {
             }
             R.id.action_settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                true
+            }
+            R.id.action_about -> {
+                AboutDialog(this).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
