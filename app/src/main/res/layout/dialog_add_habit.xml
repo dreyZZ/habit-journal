@@ -12,6 +12,7 @@
         android:hint="Habit Name"
         android:textColorHint="#A5A5A5"
         android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_regular"
         />
 
     <Button
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/submitButton"
         android:text="Save"
+        android:fontFamily="@font/montserrat_regular"
         />
 
 </LinearLayout>

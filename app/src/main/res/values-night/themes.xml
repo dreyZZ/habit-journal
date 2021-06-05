@@ -27,6 +27,21 @@
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/ActionBar</item>
         <item name="windowActionBar">false</item>
+
+        <item name="android:textViewStyle">@style/MainTextViewStyle</item>
+        <item name="android:editTextStyle">@style/MainTextViewStyle</item>
+        <item name="android:radioButtonStyle">@style/MainTextViewStyle</item>
+        <item name="android:preferenceStyle">@style/MainTextViewStyle</item>
+        <item name="android:dialogPreferenceStyle">@style/MainTextViewStyle</item>
+        <item name="android:buttonStyle">@style/MainButtonStyle</item>
+    </style>
+
+    <style name="MainTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="MainButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
     <style name="ActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

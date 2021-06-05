@@ -63,7 +63,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="2dp"
-                android:fontFamily="sans-serif-black"
                 android:gravity="center_vertical"
                 android:paddingVertical="5dp"
                 android:textColor="@color/main_background"

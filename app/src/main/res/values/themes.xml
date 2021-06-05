@@ -26,6 +26,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="windowActionBar">false</item>
 
+        <item name="android:textViewStyle">@style/MainTextViewStyle</item>
+        <item name="android:editTextStyle">@style/MainTextViewStyle</item>
+        <item name="android:buttonStyle">@style/MainButtonStyle</item>
+
+    </style>
+
+    <style name="MainTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="MainButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
     <style name="Theme.HabitExperience.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -9,12 +9,14 @@
         android:id="@id/inputText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fontFamily="@font/montserrat_regular"
         android:hint="Experience Content"
         android:textColor="@color/white"
         android:textColorHint="#A5A5A5" />
 
     <Button
         android:id="@id/submitButton"
+        android:fontFamily="@font/montserrat_regular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save" />

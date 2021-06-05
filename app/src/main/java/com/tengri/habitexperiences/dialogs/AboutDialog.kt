@@ -21,7 +21,7 @@ class AboutDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.about_dialog)
+        setContentView(R.layout.dialog_about)
 
         val button = findViewById<Button>(R.id.mailButton)
         button.setOnClickListener {

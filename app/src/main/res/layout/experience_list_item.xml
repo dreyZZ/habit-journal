@@ -40,7 +40,6 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif-black"
                     android:text="Experience Content"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
