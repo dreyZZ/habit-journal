@@ -62,6 +62,8 @@ class ExperienceListAdapter(
             true -> holder.dragButton.visibility = View.VISIBLE
             false -> holder.dragButton.visibility = View.GONE
         }
+
+        editModeChange = false
     }
 
     class ModelViewHolder(

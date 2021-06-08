@@ -64,6 +64,8 @@ class HabitListAdapter(
             true -> holder.dragButton.visibility = View.VISIBLE
             false -> holder.dragButton.visibility = View.GONE
         }
+
+        editModeChange = false
     }
 
     override fun getFilter(): Filter? {

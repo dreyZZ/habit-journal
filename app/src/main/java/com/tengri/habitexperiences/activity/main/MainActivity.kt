@@ -99,7 +99,15 @@ class MainActivity : AppCompatActivity() {
                 "Social media seriously harms your mental health",
                 convertDrawableToByteArray(resources, R.drawable.book_ex3),
                 Date().time,
-                2
+                0
+            ),
+            Experience(
+                id = 0,
+                ids[1],
+                "I do not want to read stupid people",
+                null,
+                Date().time,
+                1
             )
         )
     }
@@ -118,7 +126,6 @@ class MainActivity : AppCompatActivity() {
 
                 mHabitListAdapter.editModeChange = true
                 mHabitListAdapter.notifyDataSetChanged()
-                mHabitListAdapter.editModeChange = false
 
                 onEditModeButtonClicked(!oldVal)
                 true
