@@ -15,6 +15,7 @@ import com.tengri.habitexperiences.database.DBInterface
 import com.tengri.habitexperiences.database.entities.Experience
 import com.tengri.habitexperiences.dialogs.ImageDialog
 import com.tengri.habitexperiences.state.ExperienceState
+import java.util.*
 
 class ExperienceListAdapter(
     val experienceList: MutableList<Experience>,
@@ -86,6 +87,7 @@ class ExperienceListAdapter(
         private val editButton: ImageButton = view.findViewById(R.id.editExperienceButton)
         private val imageAddButton: ImageButton = view.findViewById(R.id.addImageButton)
         private val imageView: ImageView = view.findViewById(R.id.experienceImageView)
+        private val dateTextView: TextView = view.findViewById(R.id.experienceDate)
         val dragButton: ImageButton = view.findViewById(R.id.dragButton)
 
         init {
@@ -106,6 +108,12 @@ class ExperienceListAdapter(
 
             imageAddButton.setOnClickListener {
                 onImageButtonClicked(item, adapterPosition, experienceListAdapter)
+            }
+
+            item.insertDate?.let {
+                dateTextView.text = Date(it).toLocaleString()
+            } ?: run {
+                dateTextView.visibility = View.GONE
             }
 
             item.image?.let { imageBytes ->
@@ -137,7 +145,6 @@ class ExperienceListAdapter(
 
             contentTextView.text = item.content
         }
-
-
     }
+
 }

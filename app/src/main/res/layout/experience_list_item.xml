@@ -54,6 +54,18 @@
                     android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/avatars" />
 
+                <TextView
+                    android:id="@+id/experienceDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:text=""
+                    tools:text="20-07-2021"
+                    />
+
             </LinearLayout>
 
             <ImageButton
