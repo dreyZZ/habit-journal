@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                 ids[0],
                 "They make me wiser and happier",
                 convertDrawableToByteArray(resources, R.drawable.book_ex1),
-                Date().time,
-                0
+                Date().time - 10000,
+                1
             ),
             Experience(
                 id = 0,
@@ -91,20 +91,28 @@ class MainActivity : AppCompatActivity() {
                         "and guide, Virgil to yourself.”",
                 convertDrawableToByteArray(resources, R.drawable.book_ex2),
                 Date().time,
-                1
+                2
             ),
             Experience(
                 id = 0,
-                ids[1],
-                "Social media seriously harms your mental health",
-                convertDrawableToByteArray(resources, R.drawable.book_ex3),
-                Date().time,
+                ids[0],
+                "I read the 'The Power of Habit' and learned great things 😊",
+                convertDrawableToByteArray(resources, R.drawable.book_ex4),
+                Date().time - 20000,
                 0
             ),
             Experience(
                 id = 0,
                 ids[1],
-                "I do not want to read stupid people",
+                "Social media is making me unhappy 😫",
+                convertDrawableToByteArray(resources, R.drawable.book_ex3),
+                Date().time - 10000,
+                0
+            ),
+            Experience(
+                id = 0,
+                ids[1],
+                "I do not want to read stupid people anymore 😩",
                 null,
                 Date().time,
                 1
