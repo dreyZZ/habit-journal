@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.github.chrisbanes.photoview.PhotoView
+import com.jsibbold.zoomage.ZoomageView
 import com.tengri.habitjournal.R
 import com.tengri.habitjournal.util.convertByteArrayToBmp
 
@@ -31,7 +32,7 @@ class ImageDialog(
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_experience_image)
 
-        val photoView = findViewById<PhotoView>(R.id.imageView)
+        val photoView = findViewById<ZoomageView>(R.id.imageView)
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
 
         Glide.with(context)

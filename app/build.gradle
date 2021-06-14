@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "com.tengri.habitjournal"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -81,5 +81,7 @@ dependencies {
     // Swipe
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     implementation 'ru.rambler.android:swipe-layout:1.1.0'
+
+    implementation 'com.jsibbold:zoomage:1.3.0'
 
 }
