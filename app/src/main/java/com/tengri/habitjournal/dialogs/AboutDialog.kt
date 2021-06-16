@@ -34,7 +34,7 @@ class AboutDialog(context: Context) : Dialog(context) {
             try {
                 context.startActivity(emailIntent)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(context, "Sorry, Could not open the mail app..", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Sorry, Could not find the mail app..", Toast.LENGTH_SHORT).show()
             }
         }
 
