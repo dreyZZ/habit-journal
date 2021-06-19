@@ -316,9 +316,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun onDeleteButtonClicked(pos: Int) {
         val adapter = mHabitListAdapter
-        val habit = mHabitListAdapter.filteredHabits[pos]
+        val habit = adapter.filteredHabits[pos]
 
         HabitState.delete(habit)
+        adapter.filteredHabits.removeAt(pos)
         adapter.notifyItemRemoved(pos)
     }
 
