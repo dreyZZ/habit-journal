@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tengri.habitjournal">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
+
     <application
         android:name="com.tengri.habitjournal.App"
         android:allowBackup="true"
