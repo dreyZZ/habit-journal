@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -14,11 +15,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.github.chrisbanes.photoview.PhotoView
 import com.tengri.habitjournal.R
+import java.io.File
 
 class ImageDialog(
     context: Context,
-    private val imageBytes: ByteArray,
-    private val onImageButtonClicked: () -> Unit
+    private val imageUri: String,
+    private val onDeleteButtonClicked: () -> Unit
 ) : Dialog(context) {
 
 
@@ -34,7 +36,7 @@ class ImageDialog(
         val imageButton = findViewById<ImageButton>(R.id.imageButton)
 
         Glide.with(context)
-            .load(imageBytes)
+            .load(Uri.fromFile(File(imageUri)))
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .transition(DrawableTransitionOptions.withCrossFade())
             .placeholder(ColorDrawable(Color.TRANSPARENT))
@@ -70,7 +72,7 @@ class ImageDialog(
 
         imageButton.setOnClickListener {
             dismiss()
-            onImageButtonClicked()
+            onDeleteButtonClicked()
         }
     }
 }

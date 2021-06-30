@@ -1,6 +1,5 @@
 package com.tengri.habitjournal.database.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
@@ -19,8 +18,7 @@ data class Experience(
     val habitId: Long,
     var content: String?,
 
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    var image: ByteArray?,
+    var image: String?,
 
     var insertDate: Long?,
     var position: Long
@@ -35,7 +33,7 @@ data class Experience(
         if (id != other.id) return false
         if (habitId != other.habitId) return false
         if (content != other.content) return false
-        if (!image.contentEquals(other.image)) return false
+        if (image != other.image) return false
 
         return true
     }
@@ -44,7 +42,7 @@ data class Experience(
         var result = id.hashCode()
         result = 31 * result + habitId.hashCode()
         result = 31 * result + (content?.hashCode() ?: 0)
-        result = 31 * result + image.contentHashCode()
+        result = 31 * result + image.hashCode()
         return result
     }
 }

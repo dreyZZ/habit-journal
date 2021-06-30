@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.tengri.habitjournal.App.Companion.experienceImageDir
 import com.tengri.habitjournal.App.Companion.sharedPreferences
 import com.tengri.habitjournal.R
 import com.tengri.habitjournal.activity.habit_detail.adapter.ExperienceListAdapter
@@ -135,7 +136,15 @@ class HabitDetailActivity : AppCompatActivity() {
                                 Activity.RESULT_OK -> {
                                     val file: File = ImagePicker.getFile(data)!!
 
-                                    experience.image = file.readBytes()
+                                    val copiedFile =
+                                        file.copyTo(File(experienceImageDir.path + File.separator + file.name))
+
+                                    // delete old image
+                                    experience.image?.let {
+                                        File(it).delete()
+                                    }
+
+                                    experience.image = copiedFile.path
 
                                     adapter.notifyItemChanged(pos)
 

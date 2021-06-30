@@ -1,8 +1,11 @@
 package com.tengri.habitjournal.activity.main
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,8 +15,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.billingclient.api.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tengri.habitjournal.App
+import com.tengri.habitjournal.App.Companion.experienceImageDir
 import com.tengri.habitjournal.R
 import com.tengri.habitjournal.activity.habit_detail.HabitDetailActivity
 import com.tengri.habitjournal.activity.main.adapter.HabitListAdapter
@@ -25,12 +30,13 @@ import com.tengri.habitjournal.dialogs.AboutDialog
 import com.tengri.habitjournal.dialogs.HabitDialog
 import com.tengri.habitjournal.state.AppSettings
 import com.tengri.habitjournal.state.HabitState
-import com.tengri.habitjournal.util.convertDrawableToByteArray
 import com.tengri.habitjournal.util.rowColors
+import com.tengri.habitjournal.util.saveBitmapToFile
 import dev.sasikanth.colorsheet.ColorSheet
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.File
 import java.util.*
 
 
@@ -56,7 +62,11 @@ class MainActivity : AppCompatActivity() {
         val firstStart = App.sharedPreferences.getBoolean("firstStart", true)
 
         if (firstStart) {
-            initializeDb()
+            try {
+                initializeDb()
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Could not initialize db", e)
+            }
 
             val editor = App.sharedPreferences.edit()
             editor.putBoolean("firstStart", false)
@@ -73,12 +83,14 @@ class MainActivity : AppCompatActivity() {
             Habit(id = 0, "Social Media", color = Color.RED, position = 1)
         )
 
+        val experienceImages = saveImagesToExternalDir()
+
         DBInterface.db.experienceDao().insertAll(
             Experience(
                 id = 0,
                 ids[0],
                 "They make me wiser and happier",
-                convertDrawableToByteArray(resources, R.drawable.book_ex1),
+                experienceImages[0],
                 Date().time - 10000,
                 1
             ),
@@ -89,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                         "[Reading great books] is about getting a second chance. It’s not about being born " +
                         "again, but about growing up a second time, this time around as your own educator " +
                         "and guide, Virgil to yourself.”",
-                convertDrawableToByteArray(resources, R.drawable.book_ex2),
+                experienceImages[1],
                 Date().time,
                 2
             ),
@@ -97,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 id = 0,
                 ids[0],
                 "I read the 'The Power of Habit' and learned great things 😊",
-                convertDrawableToByteArray(resources, R.drawable.book_ex4),
+                experienceImages[2],
                 Date().time - 20000,
                 0
             ),
@@ -105,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 id = 0,
                 ids[1],
                 "Social media is making me unhappy 😫",
-                convertDrawableToByteArray(resources, R.drawable.book_ex3),
+                experienceImages[3],
                 Date().time - 10000,
                 0
             ),
@@ -118,6 +130,33 @@ class MainActivity : AppCompatActivity() {
                 1
             )
         )
+    }
+
+    private fun saveImagesToExternalDir(): ArrayList<String> {
+        val experienceImageUriList = arrayListOf<String>()
+
+        val imagesList = listOf(
+            R.drawable.book_ex1,
+            R.drawable.book_ex2,
+            R.drawable.book_ex3,
+            R.drawable.book_ex4
+        )
+
+        imagesList.forEach {
+            val uri = saveToExternalDir(it)
+            experienceImageUriList.add(uri)
+        }
+
+        return experienceImageUriList
+    }
+
+    private fun saveToExternalDir(it: Int) : String {
+        val bm = BitmapFactory.decodeResource(resources, it)
+        val fileName = "${it}.png"
+
+        saveBitmapToFile(experienceImageDir, fileName, bm, Bitmap.CompressFormat.PNG, 100)
+
+        return experienceImageDir.path + File.separator + fileName
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

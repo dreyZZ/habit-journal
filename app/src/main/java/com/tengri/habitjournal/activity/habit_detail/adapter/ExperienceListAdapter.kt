@@ -1,6 +1,9 @@
 package com.tengri.habitjournal.activity.habit_detail.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +13,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.tengri.habitjournal.R
 import com.tengri.habitjournal.database.DBInterface
 import com.tengri.habitjournal.database.entities.Experience
 import com.tengri.habitjournal.dialogs.ImageDialog
 import com.tengri.habitjournal.state.ExperienceState
+import java.io.File
+import java.lang.Exception
 import java.util.*
 
 class ExperienceListAdapter(
@@ -116,27 +123,34 @@ class ExperienceListAdapter(
                 dateTextView.visibility = View.GONE
             }
 
-            item.image?.let { imageBytes ->
-                imageView.visibility = View.VISIBLE
+            item.image?.let { imageUri ->
+                try {
+                    imageView.visibility = View.VISIBLE
 
-                Glide.with(imageView)
-                    .load(imageBytes)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .override(300, 300)
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .placeholder(ColorDrawable(Color.BLACK))
-                    .into(imageView)
+                    val imageFile = File(imageUri)
 
-                imageView.setOnClickListener {
-                    ImageDialog(
-                        itemView.context,
-                        imageBytes,
-                        onImageButtonClicked = {
-                            item.image = null
-                            DBInterface.db.experienceDao().update(item)
-                            experienceListAdapter.notifyItemChanged(adapterPosition)
-                        }
-                    ).show()
+                    Glide.with(imageView)
+                        .load(Uri.fromFile(imageFile))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .override(300, 300)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .placeholder(ColorDrawable(Color.BLACK))
+                        .into(imageView)
+
+                    imageView.setOnClickListener {
+                        ImageDialog(
+                            itemView.context,
+                            imageUri,
+                            onDeleteButtonClicked = {
+                                imageFile.delete()
+                                item.image = null
+                                DBInterface.db.experienceDao().update(item)
+                                experienceListAdapter.notifyItemChanged(adapterPosition)
+                            }
+                        ).show()
+                    }
+                } catch (e: Exception) {
+                    imageView.visibility = View.GONE
                 }
             } ?: run {
                 Glide.with(this.itemView)

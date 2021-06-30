@@ -13,7 +13,7 @@
             app:entries="@array/compress_entries"
             app:entryValues="@array/compress_values"
             app:key="compress_level"
-            app:title="Image Compression Level"
+            app:title="Experience Image Compressed Size"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

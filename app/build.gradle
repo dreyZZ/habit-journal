@@ -17,8 +17,8 @@ android {
         applicationId "com.tengri.habitmemories"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 5
-        versionName "5.0"
+        versionCode 6
+        versionName "6.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -81,5 +81,12 @@ dependencies {
     // Swipe
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     implementation 'ru.rambler.android:swipe-layout:1.1.0'
+
+    // Billing
+    def billing_version = "4.0.0"
+
+    implementation("com.android.billingclient:billing:$billing_version")
+    implementation "com.android.billingclient:billing-ktx:$billing_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02"
 
 }
