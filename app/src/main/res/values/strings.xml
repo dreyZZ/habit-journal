@@ -12,4 +12,6 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="thanks_message">Thank you for installing my app. If you encounter bugs and problems or want to request a new feature, please mail me via button below.</string>
+    <string name="mail">MAIL</string>
 </resources>
